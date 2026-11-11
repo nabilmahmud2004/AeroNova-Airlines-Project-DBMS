@@ -1,0 +1,1 @@
+Put destination photos here, named by airport code: LHR.jpg, DXB.jpg, SIN.jpg, JFK.jpg, IST.jpg, HND.jpg. Press Ctrl+F5 in the browser to see them.

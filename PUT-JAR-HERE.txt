@@ -1,0 +1,4 @@
+Put the file mariadb-java-client-3.4.1.jar in this folder.
+(Maven downloads it automatically; it is usually in
+C:\Users\<your name>\.m2\repository\org\mariadb\jdbc\mariadb-java-client\3.4.1\ )
+This jar is only needed for run.bat. NetBeans/Maven users do not need it.

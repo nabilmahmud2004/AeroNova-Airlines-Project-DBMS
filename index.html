@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aeronova Airlines | Beyond the Horizon</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0E1030; --bg2:#151847; --panel:#171A4A; --line:rgba(236,220,196,.16);
+  --cream:#F3E6D0; --gold:#E6CDA5; --text:#EDEAF6; --muted:#B4B2CC; --coral:#FF7A6B; --ink:#14163F;
+  --grad:linear-gradient(135deg,#F7EBD8,#E4C99F);
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:600;line-height:1.12;margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);background:rgba(14,16,48,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:82px;max-width:1280px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{width:44px;height:44px}
+.logo b{display:block;font:700 26px "Playfair Display",serif;letter-spacing:.04em;line-height:1}
+.logo small{display:block;font-size:10px;letter-spacing:.3em;color:var(--gold);margin-top:6px}
+nav{display:flex;gap:34px;font-weight:500;font-size:15px}
+nav a{color:#E4E1F2;padding:6px 0;border-bottom:1px solid transparent}
+nav a:hover{color:var(--gold);border-color:var(--gold)}
+.right{display:flex;align-items:center;gap:20px}
+.signin{background:none;border:0;color:var(--gold);font:600 12px Inter;letter-spacing:.1em;cursor:pointer}
+.pill{display:inline-block;border:0;border-radius:999px;background:var(--grad);color:var(--ink);font:600 15px Inter;padding:15px 30px;cursor:pointer;box-shadow:0 10px 30px -10px rgba(230,205,165,.55);transition:transform .2s}
+.pill:hover{transform:translateY(-2px)}
+.ghost{display:inline-block;border:1px solid rgba(236,220,196,.4);border-radius:999px;background:transparent;color:#fff;font:600 15px Inter;padding:15px 30px;cursor:pointer}
+.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.menu{display:none;background:none;border:1px solid var(--line);color:var(--gold);border-radius:10px;padding:8px 12px;font:600 14px Inter;cursor:pointer}
+@media(max-width:980px){nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg2);padding:10px 28px 18px}
+ nav.open{display:flex}nav a{padding:14px 0;border-bottom:1px solid var(--line)}.menu{display:block}.right .pill{display:none}}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;text-align:center;padding:150px 0 90px;position:relative;overflow:hidden;
+ background:radial-gradient(70% 55% at 50% 38%,#232767 0%,transparent 70%),var(--bg)}
+.hero::before,.hero::after{content:"";position:absolute;border:1px solid var(--line);border-radius:50%;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero::before{width:1100px;height:1100px;bottom:-640px}
+.hero::after{width:1500px;height:1500px;bottom:-1000px}
+.hero h1{font-size:clamp(44px,7.4vw,96px);font-weight:600;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;display:block}
+.hero p{max-width:640px;margin:26px auto 0;color:var(--muted);font-size:clamp(16px,2vw,20px)}
+.cta{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.stats{display:flex;justify-content:center;gap:clamp(30px,8vw,110px);margin:56px auto 0;padding-top:34px;border-top:1px solid var(--line);max-width:640px;flex-wrap:wrap}
+.stats b{display:block;font:600 34px "Playfair Display",serif;color:var(--gold)}
+.stats span{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.down{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:46px;height:46px;border-radius:50%;background:#2A2C4C;border:1px solid var(--line);display:grid;place-items:center;color:#fff}
+@media(prefers-reduced-motion:no-preference){.down{animation:bob 2.4s ease-in-out infinite}@keyframes bob{50%{transform:translate(-50%,6px)}}}
+
+/* booking */
+.sec{padding:100px 0 0}
+.sec h2{font-size:clamp(34px,4.6vw,56px);margin-bottom:12px}
+.sec .lead{color:var(--muted);max-width:540px;margin:0 0 38px}
+.panel{background:linear-gradient(160deg,var(--panel),#12153E);border:1px solid var(--line);border-radius:26px;padding:32px;box-shadow:0 40px 80px -40px #000}
+.tabs{display:flex;gap:8px;margin-bottom:22px}
+.tabs button{border:1px solid var(--line);background:transparent;color:var(--muted);font:500 14px Inter;padding:9px 20px;border-radius:999px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--grad);color:var(--ink);border-color:transparent;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}
+input,select{width:100%;height:52px;border:1px solid var(--line);background:#0E1034;color:var(--text);border-radius:14px;padding:0 14px;font:500 15px Inter}
+input:focus,select:focus{border-color:var(--gold)}
+input[type=date]{color-scheme:dark}
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}.grid .pill{grid-column:1/-1}}
+#results{display:grid;gap:12px;margin-top:22px}
+.flight{display:grid;grid-template-columns:1fr 2.2fr 1fr auto;gap:20px;align-items:center;padding:18px 22px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03)}
+.flight b{font:600 26px "Playfair Display",serif}
+.flight small{display:block;color:var(--muted)}
+.bar{height:1px;background:linear-gradient(90deg,var(--gold),var(--coral))}
+.price{font:600 20px Inter;color:var(--gold)}
+.flight .pill{padding:11px 22px;font-size:14px}
+.msg{color:var(--muted);padding:6px 2px}
+@media(max-width:760px){.flight{grid-template-columns:1fr 1fr}.bar{display:none}}
+
+/* destinations */
+.dest{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:16px}
+.tile{border-radius:22px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);transition:transform .25s,border-color .25s}
+.tile:hover{transform:translateY(-4px);border-color:var(--gold)}
+.tile h3{font-size:30px}.tile span{color:var(--gold);font-size:14px}
+.tile:nth-child(1){grid-row:span 2;background:radial-gradient(90% 70% at 20% 10%,#3A3F9E,#171A4F)}
+.tile:nth-child(2){background:linear-gradient(160deg,#4A2A5E,#161844)}
+.tile:nth-child(3){background:linear-gradient(160deg,#1F4A6E,#141745)}
+.tile:nth-child(4){background:linear-gradient(160deg,#6B3A4F,#17194A)}
+.tile:nth-child(5){background:linear-gradient(160deg,#2A3490,#12143C)}
+@media(max-width:760px){.dest{grid-template-columns:1fr 1fr;grid-template-rows:auto}.tile{min-height:170px}.tile:nth-child(1){grid-row:auto;grid-column:1/-1}}
+
+/* cabins */
+.cabins{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cabin{border:1px solid var(--line);border-radius:22px;padding:30px;background:rgba(255,255,255,.03)}
+.cabin h3{font-size:28px;margin-bottom:8px}
+.cabin p{color:var(--muted);margin:0 0 14px}
+.cabin ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px}
+.cabin.top{background:var(--grad);color:var(--ink);border:0}
+.cabin.top p,.cabin.top ul{color:#3B3A5E}
+@media(max-width:860px){.cabins{grid-template-columns:1fr}}
+
+/* status + club */
+.status{display:flex;gap:14px;flex-wrap:wrap;align-items:end}
+.status>div{flex:1 1 200px}
+.badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--muted)}
+.badge i{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+.combo{position:relative}
+.clist{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 4px);max-height:300px;overflow:auto;margin:0;padding:6px;list-style:none;background:#14173F;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.clist[hidden]{display:none}
+.clist li{padding:9px 12px;border-radius:10px;cursor:pointer;line-height:1.35}
+.clist li.on,.clist li:hover{background:rgba(230,205,165,.14)}
+.clist li small{display:block;color:var(--muted);font-size:12px}
+.clist .cc{color:#E6CDA5;font-size:12px;margin-left:4px}
+.clist .grp{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px 2px;cursor:default}
+.clist .none{color:var(--muted);cursor:default}
+textarea{width:100%;border:1px solid var(--line);background:#0E1034;color:var(--text);border-radius:14px;padding:12px 14px;font:500 15px Inter;resize:vertical}
+.stcard{border:1px solid var(--line);border-radius:22px;padding:22px;background:rgba(10,12,40,.5);text-align:left}
+.sthead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:18px}.sthead>b{font:600 22px "Playfair Display",serif}.sthead>span:last-child{color:var(--muted)}
+.bdg{display:inline-block;padding:4px 14px;border-radius:999px;font:600 13px Inter}
+.bdg.green{background:rgba(123,224,168,.16);color:#7BE0A8}.bdg.yellow{background:rgba(246,211,101,.16);color:#F6D365}.bdg.red{background:rgba(255,122,107,.16);color:#FF7A6B}
+.route{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.stc{flex:1 1 220px;display:flex;flex-direction:column;gap:2px}.stc small{color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+.stc .code{font:700 clamp(36px,7vw,58px)/1 "Playfair Display",serif;color:#E6CDA5}.stc span{color:var(--muted);font-size:14px}.stc .tm{font:600 26px Inter;margin-top:8px}
+.stc.r{text-align:right}
+.smid{flex:1 1 200px;text-align:center;color:var(--muted)}
+.trk{position:relative;height:4px;border-radius:4px;background:rgba(236,220,196,.2);margin:16px 6px}.trk i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,#F7EBD8,#E4C99F)}
+.trk em{position:absolute;top:-13px;transform:translateX(-50%);font-style:normal;font-size:22px;color:#E6CDA5}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:20px}.sg small{display:block;color:var(--muted);font-size:12px}.sg b{font-weight:600}
+.stx{margin-top:18px;padding:14px 16px;border:1px dashed rgba(230,205,165,.4);border-radius:14px;color:var(--muted)}.stx b{color:#E6CDA5}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.rhead{display:flex;gap:12px;align-items:baseline;margin-bottom:12px}.rhead b{font:600 28px "Playfair Display",serif;color:#E6CDA5}.rhead span{color:var(--muted)}
+.rv{padding:10px 0;border-bottom:1px solid var(--line)}.rv .stars{color:#F6D365;margin-left:6px}.rv small{display:block;color:var(--muted)}.rv p{margin:4px 0 0}
+#revForm{margin-top:18px}
+.help b{display:block;font-size:20px;color:#E6CDA5}.help p{margin:4px 0 14px;color:var(--muted)}
+.seat{color:#7BE0A8;font-weight:600}.seat.none{color:#FF7A6B}
+.vipnote{color:#E6CDA5}
+.vipcard{background:linear-gradient(135deg,#2B2F7A,#171A4A 60%,#12153E);border:1px solid rgba(230,205,165,.55);border-radius:20px;padding:20px 22px;margin:6px 0 16px;box-shadow:0 18px 40px -24px #000}
+.vipcard .vc-top{display:flex;justify-content:space-between;font:700 12px Inter;letter-spacing:.2em;color:var(--gold)}
+.vipcard .vc-name{font:600 26px/1.2 "Playfair Display",serif;margin:18px 0 12px}
+.vipcard .vc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.vipcard small{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rcpt{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0 0 16px;font-size:14px}.rcpt dt{color:var(--muted)}.rcpt dd{margin:0;text-align:right}
+.tripHead{display:grid;gap:2px;margin-bottom:6px}.tripHead small{color:var(--muted)}
+.tpax{border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}.tpax h3{margin:0 0 6px;font-size:18px}
+.steps{display:grid;gap:10px;margin-top:10px}
+.step{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.step .dot{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 12px Inter;background:rgba(255,255,255,.1);color:var(--muted)}
+.step.ok .dot{background:#7BE0A8;color:#0E1030}.step.bad .dot{background:#FF7A6B;color:#0E1030}
+.step small{display:block;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);max-width:min(92vw,520px);background:#1D2160;border:1px solid var(--gold);padding:14px 20px;border-radius:14px;z-index:99;box-shadow:0 18px 40px -20px #000;display:none}
+#confirmModal{z-index:90}
+
+.perks{margin:0 0 16px;padding-left:20px;color:var(--muted)}
+.club{margin-top:100px;border:1px solid var(--line);border-radius:28px;padding:clamp(30px,6vw,64px);display:flex;gap:30px;justify-content:space-between;align-items:center;flex-wrap:wrap;background:radial-gradient(80% 120% at 0% 0%,#2A2F83,#12143C)}
+.club h2{max-width:560px}.club p{color:var(--muted);max-width:460px;margin:12px 0 0}
+footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 60px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+
+/* booking modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(6,7,24,.78);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.modal[hidden]{display:none}
+.box{position:relative;width:100%;max-width:620px;background:linear-gradient(160deg,var(--panel),#12153E);border:1px solid var(--line);border-radius:26px;padding:34px;margin:auto}
+.box h2{font-size:34px;margin-bottom:6px}
+.box .lead{margin:0 0 22px;font-size:15px}
+.x{position:absolute;top:14px;right:18px;background:none;border:0;color:var(--muted);font-size:30px;cursor:pointer;line-height:1}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.f2 .full{grid-column:1/-1}
+.err{color:var(--coral);min-height:22px;margin-bottom:10px;font-size:14px}
+.done dl{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;margin:20px 0}
+.done dt{color:var(--muted)}.done dd{margin:0;font-weight:600}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:560px){.f2{grid-template-columns:1fr}}
+.signin-mode .up{display:none}
+#myList{display:grid;gap:12px}#myList .flight{grid-template-columns:1fr 1fr auto}#myList .flight b{font-size:20px}
+[hidden]{display:none!important}
+.tabs{flex-wrap:wrap}
+.pill:disabled{opacity:.5;cursor:not-allowed}
+.flight .mid{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.flight .mid small{display:block;text-align:center;color:var(--muted)}
+.flight .more{grid-column:1/-1;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.price small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.dest{grid-template-columns:repeat(3,1fr);grid-template-rows:none;grid-auto-rows:260px}
+.tile{position:relative;overflow:hidden;color:#fff;text-decoration:none;background:linear-gradient(160deg,#2B3380,#12143C)}
+.tile:nth-child(1){grid-row:auto;grid-column:auto}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile .art{position:absolute;right:14px;top:14px;width:58%;height:58%}
+.tile .art svg{width:100%;height:100%}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,12,40,.88),transparent 62%)}
+.tile .tx{position:relative;z-index:2}
+.tile .tx span{display:block}
+.tile .tk{margin-top:6px;font-weight:600}
+@media(max-width:860px){.dest{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.dest{grid-template-columns:1fr}}
+
+/* v5: cabins per flight, passenger form, seat map */
+.legh{font:600 13px Inter;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:6px 0 0}
+.chosen{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:14px;padding:10px 16px;color:var(--muted);font-size:14px;background:rgba(230,205,165,.06)}
+.chosen b{color:var(--text)}
+.link{background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:6px 16px;font:500 13px Inter;cursor:pointer}
+.link:hover{border-color:var(--gold)}
+.fl2{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:rgba(255,255,255,.03);display:grid;gap:14px}
+.fl2 .fh{display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:center}
+.fl2 .fh b{font:600 24px "Playfair Display",serif}
+.fl2 .fh small{display:block;color:var(--muted)}
+.fl2 .mid{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.fl2 .mid small{text-align:center}
+.cabrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cb{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line);background:rgba(10,12,40,.45);color:var(--text);border-radius:14px;padding:12px 14px;cursor:pointer;font:500 14px Inter;transition:border-color .2s,transform .2s}
+.cb:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px)}
+.cb:disabled{opacity:.5;cursor:not-allowed}
+.cb .cn{font:600 13px Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.cb .cp{font:600 20px Inter}
+.cb small{color:var(--muted);font-size:12px;line-height:1.35}
+.cb .left{color:#7BE0A8;font-weight:600}.cb .left.low{color:#F6D365}.cb .left.out{color:#FF7A6B}
+@media(max-width:760px){.fl2 .fh{grid-template-columns:1fr}.cabrow{grid-template-columns:1fr}}
+.paxf{border:1px solid var(--line);border-radius:16px;padding:6px 16px 4px;margin:0 0 14px;min-inline-size:0}
+.paxf legend{color:var(--gold);font:600 14px Inter;padding:0 8px}
+.hint{font-size:12px;color:var(--muted);margin:-6px 0 12px}
+.sumleg{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.sumleg:last-child{border:0}
+.box.wide{max-width:860px}
+.box h3{font:600 22px "Playfair Display",serif;margin:18px 0 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:7px 14px;font:500 13px Inter;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--grad);color:var(--ink);border-color:transparent;font-weight:600}
+.sm{overflow-x:auto;padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(10,12,40,.5);text-align:center;max-height:340px;overflow-y:auto}
+.sm-in{display:inline-block;text-align:left}
+.sm-row{display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.sm-row .rn{width:26px;text-align:right;color:var(--muted);font-size:12px;margin-right:6px}
+.sgp{display:flex;gap:4px}.aisle{width:20px}
+.st{width:30px;height:30px;border-radius:7px;border:1px solid var(--line);font:600 11px Inter;display:grid;place-items:center;padding:0;background:#0E1034;color:var(--text);cursor:pointer}
+.st.fr:hover{border-color:var(--gold)}
+.st.tk{background:#2A2C4C;color:#6c6e91;cursor:not-allowed;border-color:transparent}
+.st.me{background:var(--grad);color:var(--ink);border-color:transparent}
+.st.sp{visibility:hidden}.st.hd{background:none;border:0;color:var(--muted);cursor:default;height:20px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-2px;margin-right:5px;border:1px solid var(--line)}
+#myList .row2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#myList .flight small.nm{color:var(--gold)}
+.chk{display:flex;gap:10px;align-items:center;color:var(--text);font-size:14px;margin:0 0 10px}
+.chk input{width:20px;height:20px;flex:none}
+#myList .row2 .link{white-space:nowrap}
+.grand{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line);margin-top:6px;font-size:15px}
+.grand b{font:600 20px Inter;color:var(--gold)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Aeronova home">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M5 41C14 22 28 10 43 6 38 20 28 34 5 41Z" fill="#DADCEE" opacity=".9"/><path d="M5 41C18 27 30 16 43 6" stroke="#0E1030" stroke-width="1.5"/><path d="M40 4l1.2 3 3 1.2-3 1.2L40 12l-1.2-2.6-3-1.2 3-1.2z" fill="#F3E6D0"/></svg>
+      <span><b>AERONOVA</b><small>BEYOND THE HORIZON</small></span>
+    </a>
+    <nav id="nav" aria-label="Main">
+      <a href="#book">Book Flight</a><a href="#destinations">Destinations</a><a href="#cabins">AeroCabins</a><a href="#lounges">Lounges</a><a href="#status">Flight Status</a><a href="#club">NovaClub</a><a href="#support">Support</a>
+    </nav>
+    <div class="right">
+      <button class="signin" id="authBtn" type="button">SIGN IN</button><button class="signin" id="acctBtn" type="button" hidden>ACCOUNT</button><button class="signin" id="outBtn" type="button" hidden>SIGN OUT</button>
+      <a class="pill" href="#book">Reserve Journey</a>
+      <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <h1>Elevate Your Flight <em class="gt">Beyond the Horizon.</em></h1>
+    <p>Experience bespoke hospitality, ultra-wide private suites, and whisper-quiet intercontinental routes onboard Aeronova’s flagship fleet.</p>
+    <div class="cta"><a class="pill" href="#book">Find Voyages</a><a class="ghost" href="#cabins">Preview Aircraft Suites</a></div>
+    <div class="stats">
+      <div><b>120+</b><span>GLOBAL ROUTES</span></div>
+      <div><b>100%</b><span>CARBON OFFSET</span></div>
+      <div><b>5★</b><span>SKYTRAX RATED</span></div>
+    </div>
+  </div>
+  <a class="down" href="#book" aria-label="Scroll to booking"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+</section>
+
+<div class="wrap">
+  <section class="sec" id="book" style="padding-top:90px">
+    <h2>Find your voyage</h2>
+    <p class="lead">Search routes, compare cabins and reserve in under a minute.</p>
+    <form class="panel" id="searchForm" autocomplete="off">
+      <div class="tabs" role="group" aria-label="Flight type" style="margin-bottom:12px"><button type="button" aria-pressed="true" data-scope="domestic">Domestic flights</button><button type="button" aria-pressed="false" data-scope="international">International flights</button></div>
+      <div class="tabs" role="group" aria-label="Trip type">
+        <button type="button" aria-pressed="true" data-trip="round">Round trip</button>
+        <button type="button" aria-pressed="false" data-trip="one">One way</button>
+      </div>
+      <div class="grid">
+        <div class="combo"><label for="fromQ">From</label><input id="fromQ" type="text" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="fromL" placeholder="Type a city, country or airport"><input type="hidden" id="from" name="origin"><ul class="clist" id="fromL" role="listbox" hidden></ul></div>
+        <div class="combo"><label for="toQ">To</label><input id="toQ" type="text" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="toL" placeholder="Type a city, country or airport"><input type="hidden" id="to" name="destination"><ul class="clist" id="toL" role="listbox" hidden></ul></div>
+        <div><label for="depart">Depart</label><input type="date" id="depart" name="departDate" required></div>
+        <div id="returnBox"><label for="ret">Return</label><input type="date" id="ret" name="returnDate"></div>
+        <div><label for="adults">Adults (12+ yrs)</label><select id="adults" name="adults"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
+        <div><label for="children">Children (2-11 yrs, half fare)</label><select id="children" name="children"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+        <button class="pill" type="submit">Search flights</button>
+      </div>
+      <p style="color:var(--muted);font-size:13px;margin:12px 0 0">Prices for Economy, Premium and Royal Suite are shown for every flight. Adult: 12 years or older. Child: 2 to 11 years, pays half fare. Infants under 2 cannot be booked online. Up to 9 passengers per booking. Flights can be booked up to 5 months ahead.</p>
+      <div id="results" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="sec" id="destinations">
+    <h2>Where will Aeronova take you?</h2>
+    <p class="lead">Popular international airports with fares from Dhaka. Tap one to search it.</p>
+    <div class="dest" id="dest"></div>
+  </section>
+
+  <section class="sec" id="cabins">
+    <h2>AeroCabins</h2>
+    <p class="lead">Every seat includes a hot meal, a blanket, and a crew who remembers your name.</p>
+    <div class="cabins">
+      <div class="cabin"><h3>Economy</h3><p>Generous legroom, a full meal, and a quiet cabin.</p><ul><li>23 kg checked bag</li><li>Free online seat selection</li><li>Seatback entertainment</li><li>Lounge access with NovaClub VIP</li></ul></div>
+      <div class="cabin"><h3>Premium</h3><p>More space, calmer rows, priority throughout.</p><ul><li>Two 32 kg checked bags</li><li>Priority boarding</li><li>Nova Premium Lounge access</li></ul></div>
+      <div class="cabin"><h3>Royal Suite</h3><p>A private door and a bed that lies flat.</p><ul><li>Chauffeur to the gate</li><li>Chef-prepared dining</li><li>Unlimited changes</li><li>Nova Royal Lounge access</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec" id="lounges">
+    <h2>Airport lounges</h2>
+    <p class="lead">Who can use which lounge. Airport staff record each entry, and you can follow it under My bookings, Trip details.</p>
+    <div class="cabins" id="loungeBox"></div>
+  </section>
+
+  <section class="sec" id="status">
+    <h2>Flight status</h2>
+    <p class="lead">Enter a flight number to see the route, local times, gates, baggage belt and live progress.</p>
+    <form class="panel status" id="statusForm" autocomplete="off">
+      <div><label for="fno">Flight number</label><input id="fno" name="flightNo" placeholder="AN 201" required></div>
+      <div><label for="fdate">Date</label><input type="date" id="fdate" name="date" required></div>
+      <button class="pill" type="submit">Check status</button>
+      <div id="statusOut" aria-live="polite" style="flex-basis:100%;margin-top:14px"></div>
+    </form>
+  </section>
+
+  <section class="sec" id="club" style="padding-top:0">
+    <div class="club">
+      <div><h2>NovaClub VIP: premium membership.</h2><p>Subscribe to NovaClub for VIP treatment: <span id="clubDisc">10</span>% off every fare, extra baggage and priority handling at the airport. Monthly <b id="clubM">1,500</b> BDT or yearly <b id="clubY">15,000</b> BDT.</p><p class="vipnote" id="clubStatus"></p></div>
+      <button class="pill" id="clubBtn" type="button">Subscribe to NovaClub</button>
+    </div>
+  </section>
+  <section class="sec" id="support" style="padding-top:0">
+    <h2>Reviews and helpline</h2>
+    <p class="lead">Tell us how your flight was, or call us if you need help.</p>
+    <div class="two">
+      <div class="panel">
+        <div class="rhead"><b id="revAvg">No reviews yet</b><span id="revCount"></span></div>
+        <div id="revList"></div>
+        <form id="revForm" autocomplete="off">
+          <div class="f2">
+            <div><label for="rRating">Rating</label><select id="rRating" name="rating"><option value="5">★★★★★ Excellent</option><option value="4">★★★★ Good</option><option value="3">★★★ Okay</option><option value="2">★★ Poor</option><option value="1">★ Very poor</option></select></div>
+            <div><label for="rFlight">Flight number (optional)</label><input id="rFlight" name="flightNo" placeholder="AN 201" maxlength="12"></div>
+            <div class="full"><label for="rText">Your review</label><textarea id="rText" name="comment" maxlength="500" rows="3" placeholder="How was your flight?"></textarea></div>
+          </div>
+          <div class="err" id="rErr" role="alert"></div>
+          <button class="pill" id="rBtn" type="submit">Submit review</button>
+        </form>
+      </div>
+      <div class="panel help">
+        <h2 style="font-size:28px;margin-bottom:14px">Helpline</h2>
+        <b>+880 1700-000000</b><p>Booking, changes, refunds. Open 24 hours.</p>
+        <b>help@aeronova.test</b><p>Email us any time. We reply within one working day.</p>
+        <b>Airport desk</b><p>At the airport, ask any Aeronova staff member at the check-in counter.</p>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><div class="logo"><span><b>AERONOVA</b><small>BEYOND THE HORIZON</small></span></div><p>© 2026 Aeronova Airlines. All rights reserved.</p></div>
+    <div>Manage booking · Check in · Flight status · Contact us · <a href="/staff.html">Staff desk</a></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+  <div class="box wide">
+    <button class="x" id="mClose" type="button" aria-label="Close">×</button>
+    <form id="bookForm" autocomplete="off">
+      <h2 id="mTitle">Passenger details</h2>
+      <div class="panel" id="mSum" style="padding:12px 18px;margin-bottom:16px;border-radius:16px"></div>
+      <div id="paxBox"></div>
+      <h3>Choose your seats <small style="font:400 13px Inter;color:var(--muted)">(optional: seats are assigned automatically if you skip)</small></h3>
+      <div class="chips" id="seatLegTabs"></div>
+      <div class="chips" id="seatPax"></div>
+      <div class="sm" id="seatMap" aria-live="polite"></div>
+      <div class="legend"><span><i style="background:#0E1034"></i>Free</span><span><i style="background:#2A2C4C"></i>Taken</span><span><i style="background:var(--grad)"></i>Your pick</span><span id="seatCount"></span></div>
+      <div class="grand"><span id="grandTxt"></span><b id="grandVal"></b></div>
+      <div class="f2" style="margin-top:18px"><div class="full"><label for="bMethod">Payment method</label><select id="bMethod" name="method"><option>Card</option><option>bKash</option><option>Nagad</option><option>Bank Transfer</option><option>Cash</option></select></div></div>
+      <div class="err" id="mErr" role="alert"></div>
+      <button class="pill" type="submit" id="mBtn">Confirm and pay</button>
+      <p class="note">Payments are simulated in this version. No money is taken. Names must match the passports exactly.</p>
+    </form>
+    <div class="done" id="done" hidden>
+      <h2>Booking confirmed</h2>
+      <div id="doneList"></div>
+      <p style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px"><a class="pill" id="etLink" href="#" target="_blank" rel="noopener">View e-ticket and boarding passes</a><button class="ghost" type="button" id="doneBtn">Done</button></p>
+      <p class="note">You can open your e-ticket again any time from MY BOOKINGS. Show the QR code at the check-in desk.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="aTitle" hidden>
+  <div class="box">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="aTitle">Sign in</h2>
+    <p class="lead" style="margin:6px 0 8px">Sign in as</p>
+    <div class="tabs" style="margin:0 0 12px"><button type="button" id="roleP" aria-pressed="true">Passenger</button><button type="button" id="roleS" aria-pressed="false">Staff</button></div>
+    <div class="tabs" id="subTabs" style="margin:0 0 20px"><button type="button" id="tabIn" aria-pressed="true">Sign in</button><button type="button" id="tabUp" aria-pressed="false">Create account</button></div>
+    <form id="authForm" class="signin-mode">
+      <div class="f2">
+        <div class="full up"><label for="aName">Full name (as on passport)</label><input id="aName" name="name"></div>
+        <div class="full"><label for="aEmail">Email</label><input id="aEmail" name="email" type="email" required autocomplete="username"></div>
+        <div class="up"><label for="aPass">Passport number</label><input id="aPass" name="passport"></div>
+        <div class="up"><label for="aPhone">Phone</label><input id="aPhone" name="phone" type="tel"></div>
+        <div class="full"><label for="aPw">Password</label><input id="aPw" name="password" type="password" minlength="6" required autocomplete="current-password"></div>
+      </div>
+      <div class="err" id="aErr" role="alert"></div>
+      <button class="pill" type="submit" id="aBtn">Sign in</button>
+      <p class="note" id="forgotRow"><button class="link" type="button" id="forgotBtn">Forgot password?</button></p>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="rsTitle" hidden>
+  <div class="box" style="max-width:480px">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="rsTitle">Reset password</h2>
+    <p class="lead" style="margin:6px 0 16px">Enter the email and the passport number you registered with, then choose a new password.</p>
+    <form id="resetForm" autocomplete="off"><div class="f2">
+      <div class="full"><label for="rsEmail">Email</label><input id="rsEmail" name="email" type="email" required></div>
+      <div class="full"><label for="rsPass">Passport number</label><input id="rsPass" name="passport" required></div>
+      <div class="full"><label for="rsPw">New password (6+ characters)</label><input id="rsPw" name="password" type="password" minlength="6" required autocomplete="new-password"></div></div>
+      <div class="err" id="rsErr" role="alert"></div><button class="pill" type="submit" id="rsBtn">Change password</button></form>
+  </div>
+</div>
+
+<div class="modal" id="acctModal" role="dialog" aria-modal="true" aria-labelledby="acTitle" hidden>
+  <div class="box" style="max-width:560px">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="acTitle">My account</h2>
+    <form id="profForm" autocomplete="off" style="margin-top:14px"><div class="f2">
+      <div class="full"><label for="acName">Full name</label><input id="acName" name="name" required maxlength="100"></div>
+      <div><label for="acPhone">Phone</label><input id="acPhone" name="phone" type="tel" maxlength="25"></div>
+      <div><label for="acNat">Nationality</label><input id="acNat" name="nationality" maxlength="60"></div>
+      <div><label for="acGen">Gender</label><select id="acGen" name="gender"><option value="">Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+      <div><label>Email and passport</label><input id="acFixed" disabled></div></div>
+      <div class="err" id="acErr" role="alert"></div><button class="pill" type="submit">Save profile</button></form>
+    <h3>Change password</h3>
+    <form id="pwForm" autocomplete="off"><div class="f2">
+      <div><label for="pwOld">Current password</label><input id="pwOld" name="oldPassword" type="password" required autocomplete="current-password"></div>
+      <div><label for="pwNew">New password (6+)</label><input id="pwNew" name="newPassword" type="password" minlength="6" required autocomplete="new-password"></div></div>
+      <div class="err" id="pwErr" role="alert"></div><button class="pill" type="submit">Change password</button></form>
+    <h3 style="margin-top:22px">Sign-ins</h3>
+    <p style="color:var(--muted);font-size:14px;margin:0 0 10px">Signed in on another computer? End every session of this account.</p>
+    <button class="link" type="button" id="outAllBtn">Sign out of all devices</button>
+  </div>
+</div>
+
+<div class="modal" id="chgModal" role="dialog" aria-modal="true" aria-labelledby="cgTitle" hidden>
+  <div class="box" style="max-width:720px">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="cgTitle">Change flight</h2>
+    <p class="lead" id="cgInfo" style="margin:6px 0 14px"></p>
+    <div class="f2"><div><label for="cgDate">New date</label><input type="date" id="cgDate"></div></div>
+    <div id="cgList" style="display:grid;gap:10px"></div>
+    <div class="err" id="cgErr" role="alert"></div>
+  </div>
+</div>
+
+<div class="modal" id="clubModal" role="dialog" aria-modal="true" aria-labelledby="clubTitle" hidden>
+  <div class="box" style="max-width:520px">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="clubTitle">NovaClub VIP</h2>
+    <p class="lead" style="margin:6px 0 12px">A premium subscription is needed to join. Members get:</p>
+    <ul class="perks"><li><span id="clubDisc2">10</span>% off every fare</li><li>+10 kg extra checked baggage</li><li>VIP flag at check-in so staff give priority handling and lounge access</li></ul>
+    <form id="clubForm" autocomplete="off">
+      <div class="f2">
+        <div><label for="cPlan">Plan</label><select id="cPlan" name="plan"></select></div>
+        <div><label for="cMethod">Payment method</label><select id="cMethod" name="method"><option>Card</option><option>bKash</option><option>Nagad</option><option>Bank Transfer</option><option>Cash</option></select></div>
+      </div>
+      <div class="err" id="cErr" role="alert"></div>
+      <button class="pill" id="cBtn" type="submit">Pay and subscribe</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="clubDone" role="dialog" aria-modal="true" aria-labelledby="cdTitle" hidden>
+  <div class="box" style="max-width:540px;max-height:92vh;overflow:auto">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="cdTitle">Welcome to NovaClub VIP</h2>
+    <p class="lead" style="margin:6px 0 14px">Your membership is active. Keep the receipt number for your records.</p>
+    <div class="vipcard">
+      <div class="vc-top"><span>AERONOVA</span><span>NOVACLUB VIP</span></div>
+      <div class="vc-name" id="cdName"></div>
+      <div class="vc-grid"><div><small>Member no.</small><b id="cdNo"></b></div><div><small>Plan</small><b id="cdPlan"></b></div><div><small>Valid</small><b id="cdValid"></b></div></div>
+    </div>
+    <dl class="rcpt"><dt>Receipt</dt><dd id="cdRcpt"></dd><dt>Amount paid</dt><dd id="cdPaid"></dd><dt>Payment method</dt><dd id="cdMethod"></dd><dt>Paid on</dt><dd id="cdOn"></dd></dl>
+    <ul class="perks"><li>10% off every fare</li><li>+10 kg extra checked baggage</li><li>Nova Premium Lounge access, even in Economy</li><li>VIP flag at check-in for priority handling</li></ul>
+    <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="pill" id="cdBook" type="button">Book a flight</button><button class="link" id="cdClose" type="button">Close</button></div>
+  </div>
+</div>
+
+<div class="modal" id="tripModal" role="dialog" aria-modal="true" aria-labelledby="tripTitle" hidden>
+  <div class="box" style="max-width:720px;max-height:92vh;overflow:auto">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="tripTitle">Trip details</h2>
+    <div id="tripBody" style="margin-top:10px"></div>
+    <div class="err" id="tripErr" role="alert"></div>
+  </div>
+</div>
+
+<div class="modal" id="myModal" role="dialog" aria-modal="true" aria-labelledby="myTitle" hidden>
+  <div class="box" style="max-width:760px">
+    <button class="x" type="button" aria-label="Close">×</button>
+    <h2 id="myTitle">My bookings</h2>
+    <p class="lead" style="margin:6px 0 20px">Each flight of a round trip is its own booking. Cancelling a booking refunds what you paid for that flight.</p>
+    <div id="myList"></div>
+    <div class="err" id="myErr" role="alert"></div>
+  </div>
+</div>
+
+<div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="cfMsg" hidden>
+  <div class="box" style="max-width:420px">
+    <p id="cfMsg" style="margin:0 0 18px;font-size:17px"></p>
+    <div style="display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap"><button class="link" id="cfNo" type="button">No, go back</button><button class="pill" id="cfYes" type="button">Yes</button></div>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ---- Talks to AeronovaServer.java (JDBC -> MySQL) ---- */
+async function getFlights(q){
+  const r=await fetch('/api/flights?'+new URLSearchParams(q));
+  if(!r.ok) throw new Error('flights');
+  return r.json();
+}
+async function getStatus(q){
+  const r=await fetch('/api/status?'+new URLSearchParams(q));
+  if(r.status===404) return null;
+  if(!r.ok) throw new Error('status');
+  return r.json();
+}
+
+const $=id=>document.getElementById(id);
+const today=new Date().toISOString().slice(0,10);
+["depart","ret","fdate"].forEach(i=>$(i).min=today);
+const maxDay=new Date(Date.now()+150*864e5).toISOString().slice(0,10);
+["depart","ret"].forEach(i=>$(i).max=maxDay);
+function fixParty(){const a=+$("adults").value,ch=$("children");[...ch.options].forEach(o=>o.disabled=+o.value>9-a);if(+ch.value>9-a)ch.value=9-a}
+$("adults").addEventListener("change",fixParty); $("depart").value=new Date(Date.now()+864e5).toISOString().slice(0,10); $("fdate").value=today;
+
+$("menu").addEventListener("click",()=>{const o=$("nav").classList.toggle("open");$("menu").setAttribute("aria-expanded",o)});
+$("nav").addEventListener("click",()=>$("nav").classList.remove("open"));
+
+let tripType="round";
+document.querySelectorAll("button[data-trip]").forEach(b=>b.addEventListener("click",()=>{
+  tripType=b.dataset.trip;
+  document.querySelectorAll("button[data-trip]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  $("returnBox").style.display=tripType==="one"?"none":"";
+}));
+const addDays=(d,n)=>new Date(new Date(d+"T00:00:00Z").getTime()+n*864e5).toISOString().slice(0,10);
+$("ret").value=addDays($("depart").value,3);
+$("depart").addEventListener("change",()=>{const d=$("depart").value; if(!d)return; $("ret").min=d; if(!$("ret").value||$("ret").value<d) $("ret").value=addDays(d,3)});
+const money=n=>Number(n).toLocaleString();
+const dayTxt=d=>new Date(d+"T00:00:00Z").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
+const apName=c=>{const a=AP.find(x=>x.code===c);return a?`${a.city} (${c})`:c};
+const paxTxt=b=>(b.adults+b.children)>1?` · ${b.adults} adult${b.adults>1?"s":""}${b.children?`, ${b.children} child${b.children>1?"ren":""}`:""}`:"";
+
+/* ---- search: outbound, then return (round trip) ---- */
+const S={q:null,round:false,out:null,ret:null,leg:"out",list:[]};
+$("searchForm").addEventListener("submit",e=>{
+  e.preventDefault(); const f=Object.fromEntries(new FormData(e.target)), out=$("results");
+  if(!f.origin||!f.destination||f.origin===f.destination){out.innerHTML='<div class="msg">Choose different departure and arrival cities.</div>';return;}
+  if(tripType==="round"){
+    if(!f.returnDate){out.innerHTML='<div class="msg">Choose a return date, or switch to One way.</div>';return;}
+    if(f.returnDate<f.departDate){out.innerHTML='<div class="msg">The return date cannot be before the departure date.</div>';return;}
+  }
+  S.q=f; S.round=tripType==="round"; S.out=null; S.ret=null; showLeg("out");
+});
+function seatsTxt(n,pax){
+  if(n<=0) return '<small class="left out">Sold out</small>';
+  if(n<pax) return `<small class="left out">Only ${n} left</small>`;
+  return `<small class="left${n<=9?" low":""}">${n<=9?"Only "+n+" left":n+" seats available"}</small>`;
+}
+function flightCard(f,i){
+  return `<div class="fl2">
+    <div class="fh">
+      <div><b>${esc(f.no)}</b><small>${esc(f.airline)} · ${esc(f.aircraft)}</small></div>
+      <div><div class="mid"><b>${esc(f.dep)}</b><div><div class="bar"></div><small>${esc(f.dur)} · ${esc(viaName(f.stops))}</small></div><b>${esc(f.arr)}${f.arrDate!==f.date?"<sup> +1</sup>":""}</b></div>
+        <small style="text-align:center">${esc(f.fromCode)} ${esc(f.depTz)} → ${esc(f.toCode)} ${esc(f.arrTz)} · local times</small></div>
+    </div>
+    <div class="cabrow">${f.cabins.map(c=>`<button type="button" class="cb" data-i="${i}" data-c="${esc(c.name)}" ${c.seatsLeft<f.pax?"disabled":""}>
+      <span class="cn">${esc(c.name)}</span><span class="cp">BDT ${money(c.price)}</span><small>per adult${f.vip?" · VIP price":""}</small>
+      ${f.pax>1?`<small>${f.adults} adult${f.adults>1?"s":""}${f.children?`, ${f.children} child${f.children>1?"ren":""} at BDT ${money(c.childPrice)}`:""}<br><b style="color:var(--text)">Total BDT ${money(c.total)}</b></small>`:""}
+      ${seatsTxt(c.seatsLeft,f.pax)}<small>${esc(c.baggage)} · ${esc(c.meal)}</small></button>`).join("")}</div>
+    <div class="more" style="font-size:13px;color:var(--muted)">${esc(dayTxt(f.date))} · ${esc(f.fromCity)} (${esc(f.fromCode)}) to ${esc(f.toCity)} (${esc(f.toCode)}) · ${esc(f.reg)}</div>
+  </div>`;
+}
+async function showLeg(leg){
+  S.leg=leg; const q=S.q, out=$("results");
+  const o=leg==="out"?q.origin:q.destination, d=leg==="out"?q.destination:q.origin, date=leg==="out"?q.departDate:q.returnDate;
+  out.innerHTML='<div class="msg">Searching flights…</div>';
+  try{
+    const list=await getFlights({origin:o,destination:d,departDate:date,adults:q.adults,children:q.children});
+    S.list=list;
+    const head=`<div class="legh">${S.round?(leg==="out"?"Step 1 of 2 · Outbound":"Step 2 of 2 · Return"):"Outbound"} · ${esc(apName(o))} → ${esc(apName(d))} · ${esc(dayTxt(date))}</div>`;
+    const chosen=leg==="ret"&&S.out?`<div class="chosen"><span>Outbound chosen: <b>${esc(S.out.f.no)}</b> · ${esc(S.out.f.dep)} · ${esc(S.out.cab.name)} · BDT ${money(S.out.cab.total)}</span><button class="link" type="button" id="chgOut">Change outbound</button></div>`:"";
+    out.innerHTML=head+chosen+(list.length?list.map(flightCard).join(""):`<div class="msg">No flights on ${esc(dayTxt(date))} for this route. Try another date.</div>`);
+    if(leg==="ret") head&&out.scrollIntoView({behavior:"smooth",block:"start"});
+    const ch=$("chgOut"); if(ch) ch.onclick=()=>{S.out=null;S.ret=null;showLeg("out")};
+  }catch(err){out.innerHTML='<div class="msg">Flights could not be loaded. Try again in a moment.</div>';}
+}
+$("results").addEventListener("click",e=>{
+  const b=e.target.closest(".cb"); if(!b||b.disabled) return;
+  const f=S.list[+b.dataset.i], cab=f.cabins.find(c=>c.name===b.dataset.c);
+  S[S.leg]={f,cab};
+  if(S.round&&S.leg==="out") showLeg("ret");
+  else if(me) openBook(); else openAuth("in",openBook,"passenger");
+});
+
+function viaName(t){return String(t).replace(/via ([A-Z]{3})/,(m,c)=>{const a=AP.find(x=>x.code===c);return a?`via ${a.city} (${c})`:m})}
+function statusCard(s){
+  const side=(cls,t,code,city,ap,time,date,tz,term,gate,extra)=>`<div class="stc ${cls}"><small>${t}</small><div class="code">${esc(code)}</div><b>${esc(city)}</b><span>${esc(ap)}</span><div class="tm">${esc(time)}</div><span>${esc(date)} · ${esc(tz)}</span><span>Terminal ${esc(term)} · Gate ${esc(gate)}</span>${extra||""}</div>`;
+  const cell=(k,v)=>`<div><small>${k}</small><b>${esc(v)}</b></div>`;
+  const transit=s.transit?`<div class="stx"><b>Transit:</b> this flight makes 1 stop at ${esc(s.transit)}${s.transitAirport?", "+esc(s.transitAirport):""}.</div>`:`<div class="stx">Non-stop flight, no transit.</div>`;
+  return `<div class="stcard">
+    <div class="sthead"><b>${esc(s.flightNo)}</b><span class="bdg ${esc(s.tone)}">${esc(s.badge)}</span><span>${esc(s.aircraft)} · ${esc(s.reg)}</span></div>
+    <div class="route">
+      ${side("","Departure",s.fromCode,s.fromCity,s.fromAirport,s.depTime,s.depDate,s.depTz+" local",s.depTerminal,s.depGate)}
+      <div class="smid"><div class="trk"><i style="width:${Number(s.progress)}%"></i><em style="left:${Number(s.progress)}%">✈</em></div><small>${esc(s.duration)} · ${s.transit?"1 stop":"Non-stop"}</small></div>
+      ${side("r","Arrival",s.toCode,s.toCity,s.toAirport,s.arrTime,s.arrDate,s.arrTz+" local",s.arrTerminal,s.arrGate,`<span>Baggage claim: Belt ${esc(s.belt)}</span>`)}
+    </div>
+    <div class="sg">${cell("Scheduled departure",s.depTime)}${cell("Estimated departure",s.estDepTime)}${cell("Boarding starts",s.boardTime)}${cell("Scheduled arrival",s.arrTime)}${cell("Estimated arrival",s.estArrTime)}${cell("Flight duration",s.duration)}</div>
+    ${transit}
+  </div>`;
+}
+$("statusForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const out=$("statusOut"); out.textContent="Checking…";
+  try{
+    const s=await getStatus(Object.fromEntries(new FormData(e.target)));
+    if(!s){out.textContent="No flight found with that number.";return}
+    out.innerHTML=statusCard(s);
+  }catch(err){out.textContent="Status could not be loaded. Try again in a moment."}
+});
+
+/* ---- booking modal: passenger details, seat map, payment ---- */
+const closeModal=()=>document.querySelectorAll(".modal").forEach(m=>m.hidden=true);
+const addYears=(d,n)=>{const x=new Date(d+"T00:00:00Z");x.setUTCFullYear(x.getUTCFullYear()+n);return x.toISOString().slice(0,10)};
+let ADD={bags:[0],meals:["Standard"]}, GRAND=0;
+let legs=[], seatSel={out:[],ret:[]}, seatData={out:null,ret:null}, seatLeg="out", seatActive=0, nPax=0, nAdults=0;
+const legKeys=()=>S.round?["out","ret"]:["out"];
+async function openBook(){
+  const q=S.q; nAdults=+q.adults; nPax=nAdults+(+q.children); seatSel={out:[],ret:[]}; seatData={out:null,ret:null}; seatLeg="out"; seatActive=0;
+  const keys=legKeys(), first=S[keys[0]].f, last=S[keys[keys.length-1]].f;
+  const intl=keys.some(k=>!S[k].f.domestic);
+  let total=0;
+  $("mSum").innerHTML=keys.map(k=>{const x=S[k]; total+=x.cab.total;
+    return `<div class="sumleg"><span><b>${k==="out"?"Outbound":"Return"}</b> · ${esc(x.f.no)} · ${esc(x.f.fromCode)} → ${esc(x.f.toCode)} · ${esc(dayTxt(x.f.date))} ${esc(x.f.dep)} · ${esc(x.cab.name)}</span><b>BDT ${money(x.cab.total)}</b></div>`}).join("")
+    +(keys.length>1?`<div class="sumleg"><b>Total to pay</b><b>BDT ${money(total)}</b></div>`:"");
+  let prof={}; try{const r=await fetch("/api/profile"); if(r.ok) prof=await r.json()}catch(e){}
+  try{ADD=await (await fetch("/api/addons")).json()}catch(e){ADD={bags:[0],meals:["Standard"],bagDom:120,bagIntl:450,insDom:300,insIntl:900}}
+  const rate=intl?ADD.bagIntl:ADD.bagDom, insRate=intl?ADD.insIntl:ADD.insDom;
+  const d0=first.date, dEnd=last.date;
+  $("paxBox").innerHTML=Array.from({length:nPax},(_,i)=>{
+    const adult=i<nAdults;
+    const min=adult?"":addYears(dEnd,-12).replace(/$/,""), max=adult?addYears(d0,-12):addYears(d0,-2);
+    // a child must still be under 12 on the return date
+    const minChild=adult?"":addDays(addYears(dEnd,-12),1);
+    return `<fieldset class="paxf"><legend>Passenger ${i+1} · ${adult?"Adult (12+)":"Child (2 to 11)"}</legend>
+      <div class="f2">
+        <div class="full"><label for="p${i}n">Full name (as on passport)</label><input id="p${i}n" name="p${i}_name" required maxlength="100" value="${i===0?esc(prof.name||""):""}"></div>
+        <div><label for="p${i}d">Date of birth</label><input id="p${i}d" type="date" name="p${i}_dob" required ${minChild?`min="${minChild}"`:""} max="${max}"></div>
+        <div><label for="p${i}p">Passport number${intl?"":" (optional)"}</label><input id="p${i}p" name="p${i}_passport" maxlength="15" ${intl?"required":""} value="${i===0?esc(prof.passport||""):""}"></div>
+      </div>
+      ${adult?"":'<p class="hint">Children must be 2 to 11 years old on every travel date. We check the date of birth.</p>'}
+      <div class="f2">
+        <div><label for="p${i}b">Extra baggage (each flight)</label><select id="p${i}b" name="p${i}_bag" data-addon>${ADD.bags.map(k=>`<option value="${k}">${k?`+${k} kg · BDT ${money(k*rate)} per flight`:"None"}</option>`).join("")}</select></div>
+        <div><label for="p${i}m">Meal</label><select id="p${i}m" name="p${i}_meal">${ADD.meals.filter(m=>adult?m!=="Child meal":true).map(m=>`<option>${m}</option>`).join("")}</select></div>
+        <div class="full"><label class="chk"><input type="checkbox" name="p${i}_ins" value="1" data-addon> Travel insurance · BDT ${money(insRate)} per flight</label></div>
+      </div></fieldset>`}).join("");
+  $("paxBox").querySelectorAll('input[name$="_name"]').forEach(inp=>inp.addEventListener("input",drawSeatUi));
+  $("paxBox").onchange=recalc; recalc();
+  $("bookForm").hidden=false; $("done").hidden=true; $("mErr").textContent=""; $("modal").hidden=false;
+  await loadSeats(); drawSeatUi();
+}
+async function loadSeats(){
+  for(const k of legKeys()){
+    const x=S[k];
+    try{const r=await fetch(`/api/seats?flightId=${x.f.id}&cabin=${encodeURIComponent(x.cab.name)}`); seatData[k]=await r.json();}catch(e){seatData[k]=null}
+  }
+}
+function recalc(){
+  let fares=0, add=0;
+  legKeys().forEach(k=>{const x=S[k]; fares+=x.cab.total; const dom=x.f.domestic;
+    for(let i=0;i<nPax;i++){const b=+(document.getElementById("p"+i+"b")||{value:0}).value, ins=document.querySelector(`input[name="p${i}_ins"]`);
+      add+=b*(dom?ADD.bagDom:ADD.bagIntl)+(ins&&ins.checked?(dom?ADD.insDom:ADD.insIntl):0)}});
+  GRAND=fares+add; $("grandTxt").textContent=add?`Fares BDT ${money(fares)} + add-ons BDT ${money(add)}`:"Total to pay"; $("grandVal").textContent="BDT "+money(GRAND);
+}
+function paxLabel(i){const n=document.getElementById("p"+i+"n"); const v=n&&n.value.trim(); return v?v.split(/\s+/)[0]:"Passenger "+(i+1)}
+function drawSeatUi(){
+  const keys=legKeys();
+  $("seatLegTabs").innerHTML=keys.length>1?keys.map(k=>`<button type="button" class="chip" data-leg="${k}" aria-pressed="${k===seatLeg}">${k==="out"?"Outbound":"Return"} · ${esc(S[k].f.no)} · ${esc(S[k].cab.name)}</button>`).join(""):"";
+  $("seatPax").innerHTML=Array.from({length:nPax},(_,i)=>`<button type="button" class="chip" data-pax="${i}" aria-pressed="${i===seatActive}">${i+1}. ${esc(paxLabel(i))}: ${esc(seatSel[seatLeg][i]||"auto")}</button>`).join("");
+  drawMap();
+}
+function drawMap(){
+  const d=seatData[seatLeg], box=$("seatMap");
+  if(!d||d.error){box.textContent="Seat map is not available now. Seats will be assigned automatically.";$("seatCount").textContent="";return}
+  const mine=new Map(); seatSel[seatLeg].forEach((s,i)=>{if(s)mine.set(s,i)});
+  const taken=new Set(d.taken);
+  let h='<div class="sm-in"><div class="sm-row"><span class="rn"></span>'+d.groups.map(g=>'<div class="sgp">'+[...g].map(l=>`<span class="st hd">${l}</span>`).join("")+'</div>').join('<span class="aisle"></span>')+'</div>';
+  d.rows.forEach(r=>{
+    h+=`<div class="sm-row"><span class="rn">${r.r}</span>`+d.groups.map(g=>'<div class="sgp">'+[...g].map(l=>{
+      if(!r.l.includes(l)) return '<span class="st sp"></span>';
+      const id=r.r+l;
+      if(taken.has(id)) return `<button type="button" class="st tk" disabled title="${id} taken">${id.slice(-1)}</button>`;
+      if(mine.has(id)) return `<button type="button" class="st me" data-seat="${id}" title="${id}">${mine.get(id)+1}</button>`;
+      return `<button type="button" class="st fr" data-seat="${id}" title="${id}">${l}</button>`;
+    }).join("")+'</div>').join('<span class="aisle"></span>')+'</div>';
+  });
+  box.innerHTML=h+'</div>';
+  $("seatCount").textContent=`${d.cabin}: ${d.free} of ${d.total} seats free`;
+}
+$("seatLegTabs").addEventListener("click",e=>{const b=e.target.closest("[data-leg]");if(b){seatLeg=b.dataset.leg;drawSeatUi()}});
+$("seatPax").addEventListener("click",e=>{const b=e.target.closest("[data-pax]");if(b){seatActive=+b.dataset.pax;drawSeatUi()}});
+$("seatMap").addEventListener("click",e=>{
+  const b=e.target.closest("[data-seat]"); if(!b) return;
+  const id=b.dataset.seat, arr=seatSel[seatLeg], j=arr.indexOf(id);
+  if(j===seatActive){arr[j]=undefined}
+  else{ if(j>=0) arr[j]=undefined; arr[seatActive]=id;
+    const nx=Array.from({length:nPax},(_,i)=>i).find(i=>!arr[i]); if(nx!==undefined) seatActive=nx; }
+  drawSeatUi();
+});
+$("mClose").addEventListener("click",closeModal);
+$("doneBtn").addEventListener("click",()=>{closeModal();$("results").innerHTML="";S.out=null;S.ret=null});
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+$("bookForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("mBtn").disabled=true; $("mErr").textContent="";
+  try{
+    const body=new URLSearchParams(new FormData(e.target)), q=S.q;
+    body.set("flightId",S.out.f.id); body.set("cabin",S.out.cab.name); body.set("adults",q.adults); body.set("children",q.children);
+    if(S.round){body.set("retFlightId",S.ret.f.id); body.set("retCabin",S.ret.cab.name)}
+    seatSel.out.forEach((s,i)=>{if(s)body.set(`p${i}_seat`,s)}); seatSel.ret.forEach((s,i)=>{if(s)body.set(`p${i}_rseat`,s)});
+    const r=await fetch("/api/book",{method:"POST",body}); const d=await r.json();
+    if(!r.ok){ if(/taken/i.test(d.error||"")){await loadSeats();seatSel={out:[],ret:[]};drawSeatUi()} throw new Error(d.error||"Booking failed. Try again."); }
+    $("doneList").innerHTML=d.legs.map(l=>`<div class="sumleg"><span><b>${esc(l.leg)}</b> · ${esc(l.flightNo)} · ${esc(l.from)} → ${esc(l.to)} · ${esc(dayTxt(l.date))}<br><small style="color:var(--muted)">${esc(l.cabin)} · Seats ${esc(l.seat)}${l.addons?` · add-ons BDT ${money(l.addons)}`:""} · Booking #${l.bookingId}<br>Lounge: ${esc(loungeNote(l.cabin,me&&me.vip))}</small></span><b>BDT ${money(l.amount)}</b></div>`).join("")
+      +`<div class="sumleg"><span>Booked on</span><span>${esc(new Date().toLocaleString())}</span></div>`+`<div class="sumleg"><b>Total paid</b><b>BDT ${money(d.amount)}</b></div>`;
+    $("etLink").href="/ticket.html?b="+d.bookingIds;
+    $("bookForm").hidden=true; $("done").hidden=false; $("modal").scrollTop=0;
+  }catch(err){$("mErr").textContent=err.message; $("modal").scrollTop=$("modal").scrollHeight>0?$("modal").scrollTop:0; $("mErr").scrollIntoView({block:"center",behavior:"smooth"})}
+  finally{$("mBtn").disabled=false}
+});
+
+/* ---- accounts and my bookings ---- */
+let me=null, staffUser=null, role="passenger", mode="in", after=null;
+function setMe(u){
+  const li=u&&u.loggedIn;
+  me=li&&u.role==="passenger"?u:null; staffUser=li&&u.role==="staff"?u:null;
+  $("authBtn").textContent=me?"MY BOOKINGS":staffUser?"STAFF DESK":"SIGN IN"; $("outBtn").hidden=!(me||staffUser); $("acctBtn").hidden=!me;
+  if(typeof loadClub==="function") loadClub();
+}
+async function loadMe(){try{setMe(await (await fetch("/api/me")).json())}catch(e){setMe(null)}}
+function openAuth(m,cb,r){
+  if(r) role=r; if(role==="staff") m="in";
+  mode=m; after=cb||null;
+  $("aTitle").textContent=role==="staff"?"Staff sign in":m==="in"?"Sign in":"Create account"; $("aBtn").textContent=m==="in"?"Sign in":"Create account";
+  $("authForm").classList.toggle("signin-mode",m==="in");
+  $("roleP").setAttribute("aria-pressed",role==="passenger"); $("roleS").setAttribute("aria-pressed",role==="staff");
+  $("subTabs").hidden=role==="staff";
+  $("aEmail").type=role==="staff"?"text":"email"; document.querySelector('label[for="aEmail"]').textContent=role==="staff"?"Staff name or email":"Email";
+  $("aPw").setAttribute("minlength",role==="staff"?"1":"6"); document.querySelector('label[for="aPw"]').textContent=role==="staff"?"Password (your staff ID)":"Password";
+  $("tabIn").setAttribute("aria-pressed",m==="in"); $("tabUp").setAttribute("aria-pressed",m!=="in");
+  $("forgotRow").hidden=!(role==="passenger"&&m==="in");
+  $("aErr").textContent=""; $("authModal").hidden=false; $("aEmail").focus();
+}
+$("roleP").onclick=()=>openAuth("in",after,"passenger");
+$("roleS").onclick=()=>openAuth("in",after,"staff");
+$("tabIn").onclick=()=>openAuth("in",after);
+$("tabUp").onclick=()=>openAuth("up",after);
+$("authBtn").onclick=()=>me?openMy():staffUser?(location.href="/staff.html"):openAuth("in",null,"passenger");
+$("outBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});setMe(null)};
+document.querySelectorAll(".modal .x").forEach(b=>b.addEventListener("click",closeModal));
+
+$("authForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("aBtn").disabled=true; $("aErr").textContent="";
+  try{
+    const body=new URLSearchParams(new FormData(e.target)); body.set("type",role);
+    const r=await fetch(mode==="in"?"/api/login":"/api/register",{method:"POST",body}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Something went wrong. Try again.");
+    if(role==="staff"){location.href="/staff.html";return}
+    await loadMe(); e.target.reset(); closeModal();
+    if(after){const f=after; after=null; f();}
+  }catch(err){$("aErr").textContent=err.message}
+  finally{$("aBtn").disabled=false}
+});
+
+async function openMy(){
+  const L=$("myList"); $("myErr").textContent=""; L.textContent="Loading…"; $("myModal").hidden=false;
+  try{
+    const r=await fetch("/api/mybookings"); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not load bookings.");
+    L.innerHTML=""; if(!d.length){L.textContent="You have no bookings yet.";return}
+    d.forEach(b=>{
+      const row=document.createElement("div"); row.className="flight";
+      const a=document.createElement("div"), c=document.createElement("div"), x=document.createElement("div");
+      a.innerHTML="<b></b><small></small><small class='nm'></small>"; c.innerHTML="<b></b><small></small><small></small>"; x.className="row2";
+      a.children[0].textContent=`${b.flightNo} · ${b.route}`;
+      a.children[1].textContent=`${b.departs} · seat ${b.seat} · ${b.cabin}${paxTxt(b)}`;
+      a.children[2].textContent=(b.leg&&b.group?`Round trip · ${b.leg} · `:"")+(b.names||"");
+      c.children[0].textContent=`Booking #${b.bookingId}`;
+      c.children[1].textContent=`${b.status}${b.checkedIn?" · checked in":""} · paid BDT ${Number(b.netPaid).toLocaleString()}`;
+      c.children[2].textContent=`Booked ${b.bookedOn||"-"}${b.group?` · Ref ${b.group}`:""}`;
+      row.append(a,c,x);
+      if(b.status==="Confirmed"){const t=document.createElement("a"); t.className="link"; t.href="/ticket.html?b="+b.bookingId; t.target="_blank"; t.rel="noopener"; t.textContent="E-ticket"; x.append(t);}
+      if(b.status==="Confirmed"){const tb=document.createElement("button"); tb.className="link"; tb.type="button"; tb.textContent="Trip details"; tb.onclick=()=>openTrip(b.bookingId); x.append(tb);}
+      if(b.canCheckIn){const ck=document.createElement("button"); ck.className="link"; ck.type="button"; ck.textContent="Check in online"; ck.onclick=()=>onlineCheckin(b.bookingId,true); x.append(ck);}
+      if(b.canCancel){const g=document.createElement("button"); g.className="link"; g.type="button"; g.textContent="Change flight"; g.onclick=()=>openChange(b); x.append(g);}
+      if(b.canCancel){const k=document.createElement("button"); k.className="link"; k.type="button"; k.textContent="Cancel"; k.onclick=()=>cancelBooking(b.bookingId); x.append(k);}
+      L.append(row);
+    });
+  }catch(err){L.textContent=""; $("myErr").textContent=err.message}
+}
+async function cancelBooking(id){
+  if(!await askConfirm("Cancel this booking? The amount you paid will be refunded.","Yes, cancel booking")) return;
+  try{
+    const r=await fetch("/api/cancel",{method:"POST",body:new URLSearchParams({bookingId:id})}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not cancel.");
+    await openMy();
+  }catch(err){$("myErr").textContent=err.message}
+}
+/* ---- airports, domestic / international, featured destinations ---- */
+const HUB="DAC"; let AP=[], scope="domestic";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const inScope=a=>scope==="domestic"?a.domestic:!a.domestic;
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function rank(a,q){
+  const co=norm(a.country),ci=norm(a.city),cd=norm(a.code),nm=norm(a.name);
+  if(cd===q) return 0;
+  if(co.startsWith(q)||ci.startsWith(q)) return 1;
+  if(cd.startsWith(q)) return 2;
+  const words=s=>s.split(/[^a-z0-9]+/);
+  if([co,ci,nm].some(s=>words(s).some(x=>x.startsWith(q)))) return 3;
+  if([co,ci,nm,cd].some(s=>s.includes(q))) return 4;
+  return -1;
+}
+const CB={from:{list:[],act:-1,shown:[]},to:{list:[],act:-1,shown:[]}};
+const label=a=>`${a.city} (${a.code})`;
+function comboShow(id){
+  const c=CB[id],ul=$(id+"L"),q=norm($(id+"Q").value.trim());
+  const items=!q?[...c.list]:c.list.map(a=>[rank(a,q),a]).filter(x=>x[0]>=0)
+    .sort((x,y)=>x[0]-y[0]||x[1].country.localeCompare(y[1].country)||x[1].city.localeCompare(y[1].city)).map(x=>x[1]);
+  c.shown=items; c.act=items.length?0:-1; ul.innerHTML="";
+  if(!items.length){const li=document.createElement("li");li.className="none";li.textContent="No airport found";ul.append(li)}
+  let last="";
+  items.forEach((a,i)=>{
+    if(!q&&a.country!==last){last=a.country;const g=document.createElement("li");g.className="grp";g.textContent=a.country;ul.append(g)}
+    const li=document.createElement("li");li.setAttribute("role","option");li.dataset.i=i;
+    li.innerHTML=`<b>${esc(a.city)}</b><span class="cc">${esc(a.code)}</span><small>${esc(a.name)}${q?" · "+esc(a.country):""}</small>`;
+    li.addEventListener("mousedown",e=>{e.preventDefault();comboPick(id,a.code)});
+    ul.append(li);
+  });
+  comboMark(id); ul.hidden=false; $(id+"Q").setAttribute("aria-expanded","true");
+}
+function comboMark(id){const c=CB[id];$(id+"L").querySelectorAll("li[data-i]").forEach(li=>{const on=+li.dataset.i===c.act;li.classList.toggle("on",on);if(on)li.scrollIntoView({block:"nearest"})})}
+function comboHide(id){$(id+"L").hidden=true;$(id+"Q").setAttribute("aria-expanded","false");const a=AP.find(x=>x.code===$(id).value);$(id+"Q").value=a?label(a):""}
+function comboPick(id,code,silent){
+  const a=AP.find(x=>x.code===code); $(id).value=a?a.code:""; $(id+"Q").value=a?label(a):""; $(id+"L").hidden=true;
+  if(!silent&&id==="from") buildTo();
+}
+["from","to"].forEach(id=>{
+  const q=$(id+"Q");
+  q.addEventListener("focus",()=>{q.select();comboShow(id)});
+  q.addEventListener("input",()=>comboShow(id));
+  q.addEventListener("blur",()=>comboHide(id));
+  q.addEventListener("keydown",e=>{
+    const c=CB[id];
+    if(e.key==="ArrowDown"){e.preventDefault(); if($(id+"L").hidden) comboShow(id); else {c.act=Math.min(c.shown.length-1,c.act+1);comboMark(id)}}
+    else if(e.key==="ArrowUp"){e.preventDefault(); c.act=Math.max(0,c.act-1);comboMark(id)}
+    else if(e.key==="Enter"){ if(!$(id+"L").hidden&&c.act>=0){e.preventDefault();comboPick(id,c.shown[c.act].code)} }
+    else if(e.key==="Escape"){comboHide(id)}
+  });
+});
+function buildFrom(){
+  const hub=AP.find(a=>a.code===HUB); if(!hub) return;
+  CB.from.list=[hub,...AP.filter(a=>a.code!==HUB&&inScope(a))];
+  comboPick("from",CB.from.list.some(a=>a.code===$("from").value)?$("from").value:HUB,true); buildTo();
+}
+function buildTo(){
+  const hub=AP.find(a=>a.code===HUB); if(!hub) return;
+  CB.to.list=$("from").value===HUB?AP.filter(a=>a.code!==HUB&&inScope(a)):[hub];
+  const def=scope==="domestic"?"CGP":"LHR", cur=$("to").value;
+  comboPick("to",CB.to.list.some(a=>a.code===cur)?cur:(CB.to.list.some(a=>a.code===def)?def:CB.to.list[0].code),true);
+}
+function setScope(s){
+  scope=s; document.querySelectorAll("button[data-scope]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.scope===s));
+  $("from").value=""; $("to").value=""; buildFrom();
+}
+document.querySelectorAll("button[data-scope]").forEach(b=>b.addEventListener("click",()=>setScope(b.dataset.scope)));
+fetch("/api/airports").then(r=>r.json()).then(a=>{AP=a; buildFrom();}).catch(()=>{});
+
+const W='<svg viewBox="0 0 120 120" aria-hidden="true"><g fill="#fff" fill-opacity=".85">';
+const ART={
+  LHR:W+'<rect x="50" y="34" width="20" height="74"/><polygon points="48,34 72,34 60,8"/><rect x="44" y="104" width="32" height="8"/></g><circle cx="60" cy="52" r="7" fill="#1A1E4D"/><path d="M60 47v5l3 2" stroke="#fff" fill="none" stroke-width="1.5"/></svg>',
+  DXB:W+'<polygon points="60,4 62.5,40 67,72 73,108 47,108 53,72 57.5,40"/><rect x="30" y="86" width="14" height="22"/><rect x="76" y="78" width="14" height="30"/></g></svg>',
+  SIN:W+'<rect x="26" y="44" width="16" height="64"/><rect x="52" y="44" width="16" height="64"/><rect x="78" y="44" width="16" height="64"/><path d="M12 40h96l-8 8H20z"/></g></svg>',
+  JFK:W+'<rect x="12" y="70" width="16" height="38"/><rect x="32" y="56" width="18" height="52"/><rect x="54" y="40" width="20" height="68"/><polygon points="58,40 70,40 64,10"/><rect x="78" y="62" width="16" height="46"/><rect x="98" y="78" width="12" height="30"/></g></svg>',
+  IST:W+'<path d="M30 108V76a30 30 0 0 1 60 0v32z"/><rect x="14" y="48" width="6" height="60"/><polygon points="12,48 22,48 17,34"/><rect x="100" y="48" width="6" height="60"/><polygon points="98,48 108,48 103,34"/><rect x="58" y="34" width="4" height="12"/></g></svg>',
+  HND:W+'<polygon points="6,108 60,24 114,108"/></g><polygon points="44,44 60,24 76,44 68,40 60,48 52,40" fill="#BFD7FF"/></svg>',
+  def:W+'<path d="M20 70l80-30-14 12 10 30-10 4-16-24-26 14-4 22-8-2 2-24-20 8z"/></g></svg>'
+};
+async function loadFeatured(){
+  try{
+    const list=await (await fetch("/api/featured")).json(); const box=$("dest"); box.innerHTML="";
+    list.forEach(a=>{
+      const t=document.createElement("a"); t.className="tile"; t.href="#book";
+      const img=document.createElement("img"); img.src=`/images/${a.code}.jpg`; img.alt=""; img.loading="lazy"; img.onerror=()=>img.remove();
+      const art=document.createElement("div"); art.className="art"; art.innerHTML=ART[a.code]||ART.def;
+      const tx=document.createElement("div"); tx.className="tx"; tx.innerHTML="<h3></h3><span></span><span class='tk'></span>";
+      tx.children[0].textContent=a.city; tx.children[1].textContent=`${a.name} (${a.code})`;
+      tx.children[2].textContent=`DAC to ${a.code} · from BDT ${Number(a.fare).toLocaleString()}`;
+      t.append(img,art,tx); t.onclick=()=>{setScope("international"); comboPick("to",a.code,true)}; box.append(t);
+    });
+  }catch(e){}
+}
+loadFeatured();
+loadMe();
+/* ---- NovaClub subscription ---- */
+async function loadClub(){
+  let d={member:false,monthly:1500,yearly:15000,discount:10,until:""};
+  try{d=await (await fetch("/api/club")).json()}catch(e){}
+  const n=v=>Number(v).toLocaleString();
+  $("clubM").textContent=n(d.monthly); $("clubY").textContent=n(d.yearly);
+  $("clubDisc").textContent=d.discount; $("clubDisc2").textContent=d.discount;
+  $("cPlan").innerHTML=""; $("cPlan").add(new Option(`Monthly · BDT ${n(d.monthly)}`,"Monthly")); $("cPlan").add(new Option(`Yearly · BDT ${n(d.yearly)}`,"Yearly"));
+  $("clubStatus").textContent=d.member?`★ You are a NovaClub VIP until ${d.until}.`:"";
+  $("clubBtn").textContent=d.member?"Extend membership":"Subscribe to NovaClub";
+  $("cBtn").textContent=d.member?"Pay and extend":"Pay and subscribe";
+}
+function openClub(){ $("cErr").textContent=""; loadClub(); $("clubModal").hidden=false; }
+$("clubBtn").onclick=()=>{ if(!me){openAuth("in",openClub,"passenger");return} openClub(); };
+$("clubForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("cBtn").disabled=true; $("cErr").textContent="";
+  try{
+    const r=await fetch("/api/club/join",{method:"POST",body:new URLSearchParams(new FormData(e.target))}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not subscribe. Try again.");
+    await loadMe(); await loadClub(); closeModal(); showClubDone(d);
+  }catch(err){$("cErr").textContent=err.message}
+  finally{$("cBtn").disabled=false}
+});
+
+/* ---- reviews ---- */
+async function loadReviews(){
+  try{
+    const d=await (await fetch("/api/reviews")).json();
+    $("revAvg").textContent=d.count?`${Number(d.avg).toFixed(1)} / 5`:"No reviews yet"; $("revCount").textContent=d.count?`${d.count} review${d.count>1?"s":""}`:"";
+    $("revList").innerHTML=d.reviews.map(r=>`<div class="rv"><b>${esc(r.name)}</b><span class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</span><small>${esc(r.flight?r.flight+" · ":"")}${esc(r.date)}</small>${r.comment?`<p>${esc(r.comment)}</p>`:""}</div>`).join("");
+  }catch(e){}
+}
+$("revForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("rErr").textContent="";
+  if(!me){openAuth("in",()=>$("revForm").requestSubmit(),"passenger");return}
+  $("rBtn").disabled=true;
+  try{
+    const r=await fetch("/api/review",{method:"POST",body:new URLSearchParams(new FormData(e.target))}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not save your review.");
+    e.target.reset(); await loadReviews();
+  }catch(err){$("rErr").textContent=err.message}
+  finally{$("rBtn").disabled=false}
+});
+
+/* ---- forgot password, account, change flight ---- */
+$("forgotBtn").onclick=()=>{closeModal();$("rsErr").textContent="";$("resetModal").hidden=false;$("rsEmail").focus()};
+$("resetForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("rsBtn").disabled=true; $("rsErr").textContent="";
+  try{const r=await fetch("/api/password/reset",{method:"POST",body:new URLSearchParams(new FormData(e.target))}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not reset."); e.target.reset(); closeModal(); openAuth("in",null,"passenger"); toast(d.message);
+  }catch(err){$("rsErr").textContent=err.message}finally{$("rsBtn").disabled=false}
+});
+$("acctBtn").onclick=async()=>{
+  $("acErr").textContent=""; $("pwErr").textContent="";
+  try{const p=await (await fetch("/api/profile")).json(); $("acName").value=p.name||""; $("acPhone").value=p.phone==="null"?"":(p.phone||""); $("acNat").value=p.nationality||""; $("acGen").value=p.gender||""; $("acFixed").value=`${p.email} · ${p.passport}`;}catch(e){}
+  $("acctModal").hidden=false;
+};
+$("profForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("acErr").style.color="";
+  try{const r=await fetch("/api/profile/update",{method:"POST",body:new URLSearchParams(new FormData(e.target))}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not save."); await loadMe(); $("acErr").style.color="#7BE0A8"; $("acErr").textContent=d.message;
+  }catch(err){$("acErr").style.color=""; $("acErr").textContent=err.message}
+});
+$("pwForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  try{const r=await fetch("/api/password/change",{method:"POST",body:new URLSearchParams(new FormData(e.target))}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not change."); e.target.reset(); $("pwErr").style.color="#7BE0A8"; $("pwErr").textContent=d.message;
+  }catch(err){$("pwErr").style.color=""; $("pwErr").textContent=err.message}
+});
+let chg=null;
+function openChange(b){
+  chg=b; closeModal(); $("cgErr").textContent=""; $("cgList").innerHTML="";
+  $("cgInfo").textContent=`${b.flightNo} · ${b.route} · now ${b.departs}. Choose a new date, then a flight on the same route. A change fee applies per passenger.`;
+  const d=b.departs.slice(0,10); $("cgDate").min=today; $("cgDate").max=maxDay; $("cgDate").value=d>today?d:today;
+  $("chgModal").hidden=false; loadChange();
+}
+async function loadChange(){
+  const L=$("cgList"); L.textContent="Loading…"; $("cgErr").textContent="";
+  try{
+    const r=await fetch(`/api/reschedule/options?bookingId=${chg.bookingId}&date=${$("cgDate").value}`); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not load flights.");
+    L.innerHTML=d.flights.length?"":'<div class="msg">No other flights on this date.</div>';
+    d.flights.forEach(f=>{
+      const row=document.createElement("div"); row.className="flight"; row.style.gridTemplateColumns="1fr 1fr auto";
+      row.innerHTML="<div><b></b><small></small></div><div><b></b><small></small></div>";
+      row.children[0].children[0].textContent=f.no; row.children[0].children[1].textContent=`${f.seatsLeft} ${d.cabin} seats left`;
+      row.children[1].children[0].textContent=`${f.dep} → ${f.arr}`; row.children[1].children[1].textContent=`${f.depTz} · fare ${f.fareDiff>=0?"+":"-"}BDT ${money(Math.abs(f.fareDiff))} · fee BDT ${money(f.fee)}`;
+      const bt=document.createElement("button"); bt.className="pill"; bt.type="button"; bt.disabled=!f.ok;
+      bt.textContent=!f.ok?"Not enough seats":f.pay>=0?`Change · pay BDT ${money(f.pay)}`:`Change · refund BDT ${money(-f.pay)}`;
+      bt.onclick=()=>doChange(f.id,f.no); row.append(bt); L.append(row);
+    });
+  }catch(err){L.textContent=""; $("cgErr").textContent=err.message}
+}
+$("cgDate").addEventListener("change",loadChange);
+async function doChange(id,no){
+  if(!await askConfirm(`Change to ${no}? The fare difference and change fee are charged (or refunded) now.`,"Yes, change flight")) return;
+  try{const r=await fetch("/api/reschedule",{method:"POST",body:new URLSearchParams({bookingId:chg.bookingId,newFlightId:id})}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not change the flight."); closeModal(); openMy(); toast(d.message);
+  }catch(err){$("cgErr").textContent=err.message}
+}
+
+/* ---- toast, themed confirm, lounges, trip details, online check-in, NovaClub confirmation ---- */
+let toastT;
+function toast(msg){const t=$("toast"); t.textContent=msg; t.style.display="block"; clearTimeout(toastT); toastT=setTimeout(()=>{t.style.display="none"},7000)}
+function askConfirm(msg,yes){return new Promise(res=>{
+  $("cfMsg").textContent=msg; $("cfYes").textContent=yes||"Yes"; $("confirmModal").hidden=false;
+  const done=v=>{$("confirmModal").hidden=true; $("cfYes").onclick=null; $("cfNo").onclick=null; res(v)};
+  $("cfYes").onclick=()=>done(true); $("cfNo").onclick=()=>done(false);
+})}
+$("outAllBtn").onclick=async()=>{ if(!await askConfirm("Sign out of every device, including this one?","Yes, sign out everywhere")) return; try{await fetch("/api/logout/all",{method:"POST"})}catch(e){} location.reload(); };
+
+let LOUNGES=[];
+async function loadLounges(){
+  try{LOUNGES=await (await fetch("/api/lounges")).json()}catch(e){LOUNGES=[]}
+  const box=$("loungeBox"); box.innerHTML="";
+  LOUNGES.forEach(l=>{const d=document.createElement("div"); d.className="cabin"; d.innerHTML="<h3></h3><p></p><ul><li></li><li></li><li></li></ul>";
+    d.children[0].textContent=l.name; d.children[1].textContent=l.location;
+    const li=d.querySelectorAll("li"); li[0].textContent="Capacity: "+l.capacity+" guests"; li[1].textContent="For: "+l.who; li[2].textContent="Entry is recorded by airport staff";
+    box.append(d)});
+}
+function loungeNote(cabin,vip){
+  const want=cabin==="Royal Suite"?["First","Premium"]:(cabin==="Premium"||vip)?["Premium"]:[];
+  const n=LOUNGES.filter(l=>want.includes(l.type)).map(l=>`${l.name}, ${l.location}`);
+  return n.length?n.join(" or "):"not included in Economy (NovaClub VIP members can use the Premium lounge)";
+}
+
+function showClubDone(d){
+  const n=v=>Number(v).toLocaleString();
+  $("cdTitle").textContent=d.renewed?"Membership extended":"Welcome to NovaClub VIP";
+  $("cdName").textContent=d.name||"NovaClub member"; $("cdNo").textContent=d.memberNo; $("cdPlan").textContent=d.plan; $("cdValid").textContent=`${d.from} to ${d.until}`;
+  $("cdRcpt").textContent=d.receipt; $("cdPaid").textContent="BDT "+n(d.paid); $("cdMethod").textContent=d.method; $("cdOn").textContent=new Date().toLocaleString();
+  $("clubDone").hidden=false;
+}
+$("cdClose").onclick=()=>closeModal();
+$("cdBook").onclick=()=>{closeModal(); location.hash="#book"};
+
+const stepHtml=(ok,bad,title,sub)=>`<div class="step${ok?" ok":bad?" bad":""}"><span class="dot">${ok?"✓":bad?"!":"•"}</span><div>${esc(title)}${sub?`<small>${esc(sub)}</small>`:""}</div></div>`;
+async function openTrip(id){
+  const out=$("tripBody"); out.textContent="Loading..."; $("tripErr").textContent=""; closeModal(); $("tripModal").hidden=false;
+  try{
+    const r=await fetch("/api/journey?bookingId="+encodeURIComponent(id)); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not load this trip.");
+    out.innerHTML="";
+    const hd=document.createElement("div"); hd.className="tripHead";
+    hd.innerHTML=`<b>${esc(d.flightNo)} · ${esc(d.fromCity)} to ${esc(d.toCity)} (${esc(d.route)})</b><small>${esc(d.departs)}${d.leg?` · ${esc(d.leg)}`:""}</small><small>Booking #${d.bookingId} · Reference ${esc(d.reference)} · booked ${esc(d.bookedOn)} · ${esc(d.status)}</small>`;
+    out.append(hd);
+    const ck=document.createElement("div"); ck.className="tpax"; ck.innerHTML=`<h3>Check-in</h3><p style="margin:4px 0 10px;color:var(--muted)">${esc(d.checkinMessage)}</p>`;
+    if(d.checkinOpen){const b=document.createElement("button"); b.className="pill"; b.type="button"; b.textContent="Check in all passengers now"; b.onclick=()=>onlineCheckin(id,false); ck.append(b)}
+    out.append(ck);
+    d.tickets.filter(t=>t.status!=="Cancelled").forEach(t=>{
+      const x=document.createElement("div"); x.className="tpax";
+      x.innerHTML=`<h3>${esc(t.name)}</h3><small style="color:var(--muted)">${esc(t.type)} · seat ${esc(t.seat)} · ${esc(t.cabin)}</small><div class="steps">`
+        +stepHtml(true,false,"Booked","Seat "+t.seat)
+        +stepHtml(t.checkedIn,false,t.checkedIn?"Checked in":"Check-in pending",t.checkedIn?`${t.checkedAt} · ${t.channel==="Online"?"online":"at the airport desk"}`:"Online, or at the airport desk")
+        +stepHtml(t.security==="Cleared",t.security==="Flagged"||t.security==="Denied",t.security?"Security: "+t.security:"Security check pending",t.securityAt)
+        +(d.international?stepHtml(t.immigration==="Approved",t.immigration==="Rejected",t.immigration?"Immigration: "+t.immigration:"Immigration check pending",t.immigration?`Visa ${t.visa} · ${t.immigrationAt}`:""):stepHtml(false,false,"Immigration not needed","Domestic flight"))
+        +stepHtml(!!t.loungeVisits,false,t.loungeVisits?"Lounge visited: "+t.loungeVisits:(t.lounge?"Lounge access included":"No lounge access"),t.lounge||"Economy fares have no lounge. NovaClub VIP members can use the Premium lounge.")
+        +`</div>`;
+      out.append(x)});
+    const lk=document.createElement("p"); lk.innerHTML=`<a class="pill" style="display:inline-block" target="_blank" rel="noopener" href="/ticket.html?b=${d.bookingId}">Open e-ticket and boarding passes</a>`; out.append(lk);
+  }catch(e){out.textContent=""; $("tripErr").textContent=e.message}
+}
+async function onlineCheckin(id,fromList){
+  try{
+    const r=await fetch("/api/checkin/online",{method:"POST",body:new URLSearchParams({bookingId:id})}); const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"Could not check in.");
+    toast(d.message); if(fromList) openMy(); else openTrip(id);
+  }catch(err){ if(fromList) toast(err.message); else $("tripErr").textContent=err.message }
+}
+loadLounges();
+loadClub(); loadReviews();
+</script>
+</body>
+</html>

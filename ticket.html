@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aeronova e-ticket</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#0E1030;--line:rgba(236,220,196,.16);--gold:#E6CDA5;--text:#EDEAF6;--muted:#B4B2CC;--ink:#14163F;--grad:linear-gradient(135deg,#F7EBD8,#E4C99F);
+  color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+a{color:var(--gold);text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.top b{font:700 24px "Playfair Display",serif;letter-spacing:.04em}
+h1{font:600 clamp(28px,5vw,42px)/1.15 "Playfair Display",serif;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 22px}
+.pill{border:0;border-radius:999px;background:var(--grad);color:var(--ink);font:600 15px Inter;padding:12px 24px;cursor:pointer}
+.msg{padding:18px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+.legh{font:600 13px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
+
+/* the boarding pass itself is always light so it prints well */
+.bp{position:relative;display:grid;grid-template-columns:1fr 210px;background:#FBF6EC;color:#14163F;border-radius:22px;overflow:hidden;margin-bottom:16px;box-shadow:0 24px 50px -28px #000;break-inside:avoid;page-break-inside:avoid}
+.bp .main{padding:22px 26px}
+.bp .stub{padding:22px 18px;border-left:2px dashed #C9B48C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:#F3EAD7}
+.bp .brand{display:flex;justify-content:space-between;align-items:center;font:700 13px Inter;letter-spacing:.22em;color:#6B5A36}
+.bp .brand b{font:700 20px "Playfair Display",serif;letter-spacing:.06em;color:#14163F}
+.bp .name{font:600 26px/1.15 "Playfair Display",serif;margin:14px 0 2px}
+.bp .sub{color:#5b5a7a;font-size:13px}
+.bp .route{display:flex;align-items:center;gap:14px;margin:14px 0}
+.bp .code{font:700 clamp(34px,7vw,50px)/1 "Playfair Display",serif}
+.bp .city{font-size:12px;color:#5b5a7a;max-width:160px}
+.bp .arrow{flex:1;height:2px;background:linear-gradient(90deg,#C9B48C,#FF7A6B);position:relative;min-width:30px}
+.bp .arrow::after{content:"✈";position:absolute;right:-2px;top:-12px;color:#14163F;font-size:20px}
+.bp .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px 16px;margin-top:10px}
+.bp .grid small{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7a6a46}
+.bp .grid b{font:600 16px Inter}
+.bp .seat{font:700 30px "Playfair Display",serif}
+.bp .qr{width:150px;height:150px;background:#fff;padding:8px;border-radius:10px}
+.bp .qr svg{width:100%;height:100%;display:block}
+.bp .tok{font:500 11px ui-monospace,Consolas,monospace;color:#5b5a7a;word-break:break-all}
+.tag{display:inline-block;border-radius:999px;padding:2px 12px;font:600 12px Inter;background:#DDEFE3;color:#1d6b3a}
+.tag.x{background:#FBD9D4;color:#a02a1e}
+.bp.cancelled .main,.bp.cancelled .stub{opacity:.45}
+.bp.cancelled::after{content:"CANCELLED";position:absolute;inset:0;display:grid;place-items:center;font:700 54px Inter;letter-spacing:.2em;color:rgba(160,42,30,.55);transform:rotate(-12deg)}
+.prog{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:#EFE6D2;color:#6f6140}.chip.ok{background:#DDEFE3;color:#1d6b3a}.chip.bad{background:#FBD9D4;color:#9a2f22}
+.notes{font-size:12.5px;color:var(--muted);margin-top:18px}
+@media(max-width:700px){.bp{grid-template-columns:1fr}.bp .stub{border-left:0;border-top:2px dashed #C9B48C}}
+@media print{
+  body{background:#fff;color:#000}.wrap{padding:0;max-width:none}
+  .top,.lead,.noprint,.notes{display:none!important}
+  .bp{box-shadow:none;border:1px solid #bbb;margin-bottom:14px}
+  .legh{color:#444;margin-top:14px}h1{color:#000}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b>AERONOVA</b><div class="noprint"><a href="/">← Website</a> &nbsp; <button class="pill" id="printBtn" type="button" hidden>Print / Save as PDF</button></div></div>
+  <h1>Your e-ticket</h1>
+  <p class="lead">Show the QR code at the check-in desk. Use “Print / Save as PDF” to keep a copy.</p>
+  <div id="out"><div class="msg">Loading your ticket…</div></div>
+  <p class="notes">Arrive at the airport at least 3 hours before an international flight (2 hours for domestic). Carry the passport shown at booking. Times are local to each airport.</p>
+</div>
+<script src="/qrcode.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function qrSvg(text){
+  const q=qrcode(0,"M"); q.addData(text); q.make();
+  return q.createSvgTag({cellSize:4,margin:0,scalable:true});
+}
+function progHtml(b,jt){
+  if(!jt) return "";
+  const chip=(cls,txt)=>`<span class="chip ${cls}">${esc(txt)}</span>`;
+  const c=[ jt.checkedIn?chip("ok","Check-in done"):chip("wait","Check-in pending"),
+    jt.security?chip(jt.security==="Cleared"?"ok":"bad","Security "+jt.security):chip("wait","Security pending"),
+    b.international?(jt.immigration?chip(jt.immigration==="Approved"?"ok":jt.immigration==="Rejected"?"bad":"wait","Immigration "+jt.immigration):chip("wait","Immigration pending")):chip("wait","No immigration (domestic)"),
+    jt.loungeVisits?chip("ok","Lounge visited"):chip("wait","Lounge not visited yet") ];
+  return `<div class="prog">${c.join("")}</div>`;
+}
+function pass(b,t,jt){
+  const cancelled=b.status==="Cancelled"||t.status==="Cancelled";
+  const text="AN1|"+t.token;
+  return `<div class="bp${cancelled?" cancelled":""}">
+    <div class="main">
+      <div class="brand"><b>AERONOVA</b><span>BOARDING PASS · ${esc(t.cabin).toUpperCase()}</span></div>
+      <div class="name">${esc(t.name)}</div>
+      <div class="sub">${esc(t.type)}${t.passport?" · Passport "+esc(t.passport):""} ${t.checkedIn?'<span class="tag">Checked in</span>':""}${cancelled?'<span class="tag x">Cancelled</span>':""}</div>
+      <div class="route">
+        <div><div class="code">${esc(b.fromCode)}</div><div class="city">${esc(b.fromCity)}</div></div>
+        <div class="arrow"></div>
+        <div style="text-align:right"><div class="code">${esc(b.toCode)}</div><div class="city">${esc(b.toCity)}</div></div>
+      </div>
+      <div class="grid">
+        <div><small>Flight</small><b>${esc(b.flightNo)}</b></div>
+        <div><small>Date</small><b>${esc(b.depDate)}</b></div>
+        <div><small>Departs (${esc(b.depTz)})</small><b>${esc(b.depTime)}</b></div>
+        <div><small>Boarding</small><b>${esc(b.boardTime)}</b></div>
+        <div><small>Terminal / Gate</small><b>${esc(b.terminal)} / ${esc(b.gate)}</b></div>
+        <div><small>Seat</small><div class="seat">${esc(t.seat)}</div></div>
+        <div><small>Arrives (${esc(b.arrTz)})</small><b>${esc(b.arrTime)}</b></div>
+        <div><small>Booking / Ticket</small><b>#${esc(b.bookingId)} / ${esc(t.ticketId)}</b></div>
+        <div><small>Meal</small><b>${esc(t.meal)}</b></div>
+        <div><small>Extras</small><b>${[t.extraBag?"+"+t.extraBag+" kg bag":"",t.insurance?"Insured":""].filter(Boolean).join(" · ")||"None"}</b></div>
+        <div><small>Lounge</small><b>${esc(jt&&jt.loungeNames?jt.loungeNames:"Not included")}</b></div>
+      </div>${progHtml(b,jt)}
+    </div>
+    <div class="stub">
+      ${cancelled?"":`<div class="qr" aria-label="QR code for ${esc(t.name)}">${qrSvg(text)}</div>`}
+      <div class="tok">${esc(t.token)}</div>
+      <small style="color:#7a6a46">${esc(b.aircraft)}</small>
+    </div>
+  </div>`;
+}
+async function load(){
+  const ids=new URLSearchParams(location.search).get("b")||"";
+  if(!/^\d+(,\d+){0,3}$/.test(ids)){$("out").innerHTML='<div class="msg">No booking selected. Open your e-ticket from <a href="/">My bookings</a>.</div>';return}
+  try{
+    const r=await fetch("/api/eticket?ids="+ids); const d=await r.json();
+    if(!r.ok) throw new Error(r.status===401?"Please sign in on the website first, then open this page again.":(d.error||"Could not load the ticket."));
+    const js=await Promise.all(d.map(b=>fetch("/api/journey?bookingId="+b.bookingId).then(x=>x.ok?x.json():null).catch(()=>null)));
+    const jfor=(i,tk)=>{const j=js[i]; return (j&&j.tickets.find(x=>x.ticketId===tk.ticketId))||null};
+    $("out").innerHTML=d.map((b,i)=>`<div class="legh">${esc(b.leg||"Flight")} · ${esc(b.fromCity)} → ${esc(b.toCity)} · ${esc(b.depDate)}</div>`+b.tickets.map(tk=>pass(b,tk,jfor(i,tk))).join("")).join("");
+    $("printBtn").hidden=false;
+  }catch(e){$("out").innerHTML='<div class="msg">'+esc(e.message)+' <a href="/">Go to the website</a></div>'}
+}
+$("printBtn").onclick=()=>window.print();
+load();
+</script>
+</body>
+</html>

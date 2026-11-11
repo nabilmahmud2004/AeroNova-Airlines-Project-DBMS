@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aeronova Staff Desk</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#0E1030;--panel:#171A4A;--line:rgba(236,220,196,.16);--gold:#E6CDA5;--text:#EDEAF6;--muted:#B4B2CC;--coral:#FF7A6B;--ok:#7BE0A8;--ink:#14163F;
+  --grad:linear-gradient(135deg,#F7EBD8,#E4C99F);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;margin:0;line-height:1.15}
+a{color:var(--gold);text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:30px 24px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;gap:14px;flex-wrap:wrap}
+.top b{font:700 24px "Playfair Display",serif;letter-spacing:.04em}
+h1{font-size:clamp(32px,5vw,48px);margin-bottom:8px}
+.lead{color:var(--muted);margin:0 0 22px}
+.panel{background:linear-gradient(160deg,var(--panel),#12153E);border:1px solid var(--line);border-radius:22px;padding:26px;margin-bottom:20px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input,select{width:100%;height:48px;border:1px solid var(--line);background:#0E1034;color:var(--text);border-radius:12px;padding:0 14px;font:500 15px Inter}
+input[type=date]{color-scheme:dark}
+.row{display:flex;gap:14px;align-items:end;flex-wrap:wrap}.row>div{flex:1 1 180px}
+.pill{border:0;border-radius:999px;background:var(--grad);color:var(--ink);font:600 15px Inter;padding:13px 26px;cursor:pointer}
+.pill:disabled{opacity:.5}
+.link{background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:8px 18px;font:500 14px Inter;cursor:pointer}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.info small{display:block;color:var(--muted);font-size:12px}.info b{font-weight:600}
+.card b{font:600 28px "Playfair Display",serif;color:var(--gold)}
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.acts h2{font-size:24px;margin-bottom:14px}
+.acts form>*{margin-bottom:12px}
+.tw{overflow-x:auto;margin-top:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:500}
+.err{color:var(--coral);min-height:22px;font-size:14px;margin:10px 0}
+#msg{position:sticky;bottom:16px;padding:14px 18px;border-radius:14px;background:#1D2160;border:1px solid var(--line);display:none}
+#msg.ok{display:block;border-color:var(--ok)}#msg.bad{display:block;border-color:var(--coral)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b>AERONOVA</b>
+    <div><span id="who" style="color:var(--muted);margin-right:12px"></span><button class="link" id="out" type="button" hidden>Sign out</button> <a href="/" style="margin-left:10px">← Website</a></div>
+  </div>
+
+  <div id="login" hidden>
+    <h1>Staff sign in</h1>
+    <p class="lead">Use your name (or email) and your staff ID as the password.</p>
+    <form class="panel" id="loginForm">
+      <div class="row">
+        <div><label for="le">Name or email</label><input id="le" name="email" type="text" required autocomplete="username"></div>
+        <div><label for="lp">Password (staff ID)</label><input id="lp" name="password" type="password" required autocomplete="current-password"></div>
+        <button class="pill" type="submit">Sign in</button>
+      </div>
+      <div class="err" id="lerr" role="alert"></div>
+    </form>
+  </div>
+
+  <div id="desk" hidden>
+    <h1>Staff desk</h1>
+    <p class="lead">Look up a booking, record airport checks and view the daily report. Admins can also manage flights, fares and aircraft.</p>
+
+    <form class="panel row" id="lookup" autocomplete="off">
+      <div><label for="bid">Booking ID or scanned ticket code</label><input id="bid" type="text" required placeholder="e.g. 12  or  AN1|34.ab12cd34ef" autocomplete="off"></div>
+      <button class="pill" type="submit">Find booking</button>
+    </form>
+
+    <div id="work" hidden>
+      <div class="panel"><div class="info" id="info"></div></div>
+      <div class="acts">
+        <div class="panel" style="grid-column:1/-1"><h2>Check-in</h2>
+          <p class="lead" style="margin-bottom:12px" id="paxHint"></p>
+          <div class="tw"><table><thead><tr><th>Passenger</th><th>Type</th><th>Seat</th><th>Cabin</th><th>Status</th><th></th></tr></thead><tbody id="paxRows"></tbody></table></div>
+          <p style="margin:16px 0 0"><button class="pill" id="checkAll" type="button">Check in all passengers</button></p></div>
+        <div class="panel" style="grid-column:1/-1"><label for="who">Record security, immigration and lounge entry for</label><select id="who"></select></div>
+        <div class="panel"><h2>Security check</h2>
+          <form data-path="/api/staff/security">
+            <div><label>Result</label><select name="result"><option>Cleared</option><option>Flagged</option><option>Denied</option></select></div>
+            <div><label>Remarks</label><input name="remarks" maxlength="200"></div>
+            <button class="pill" type="submit">Save security check</button></form></div>
+        <div class="panel"><h2>Immigration</h2>
+          <form data-path="/api/staff/immigration" data-flight="1">
+            <div><label>Visa status</label><select name="visa"><option>Valid</option><option>Not Required</option><option>Expired</option><option>Missing</option></select></div>
+            <div><label>Result</label><select name="result"><option>Approved</option><option>Pending</option><option>Rejected</option></select></div>
+            <button class="pill" type="submit">Save immigration check</button></form></div>
+        <div class="panel"><h2>Lounge entry</h2>
+          <form data-path="/api/staff/lounge">
+            <div><label for="lounge">Lounge</label><select name="loungeId" id="lounge"></select></div>
+            <button class="pill" type="submit">Record entry</button></form></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 style="margin-bottom:14px">Daily report</h2>
+      <div class="row"><div><label for="rdate">Date</label><input id="rdate" type="date"></div><button class="pill" id="rbtn" type="button">Show report</button></div>
+      <div class="info" id="cards" style="margin-top:18px"></div>
+      <div class="tw"><table><thead><tr><th>Flight</th><th>Route</th><th>Departs (local)</th><th>Status</th><th>Booked</th><th>Checked in</th></tr></thead><tbody id="rows"></tbody></table></div>
+    </div>
+
+    <div class="panel adm" id="manage" hidden>
+      <h2 style="margin-bottom:6px">Manage flights</h2>
+      <p class="lead" style="margin-bottom:14px">Change a fare, move a flight time, delay or cancel a flight. Cancelling refunds every booking on that flight.</p>
+      <div class="row"><div><label for="mdate">Date (Dhaka time)</label><input id="mdate" type="date"></div><div><label for="mno">or flight number</label><input id="mno" placeholder="AN 114"></div><button class="pill" id="mbtn" type="button">Show flights</button></div>
+      <div class="tw"><table><thead><tr><th>Flight</th><th>Route</th><th>Departs (local)</th><th>Booked</th><th>Fare (BDT)</th><th>Status</th><th>Shift (min)</th><th></th></tr></thead><tbody id="mrows"></tbody></table></div>
+    </div>
+
+    <div class="panel adm" hidden>
+      <h2 style="margin-bottom:6px">Add a flight</h2>
+      <p class="lead" style="margin-bottom:14px">Time is local at the departure airport. “Repeat days” creates the same flight every day.</p>
+      <form id="addFlight"><div class="row">
+        <div><label>Flight number</label><input name="flightNo" placeholder="AN 2001" required></div>
+        <div><label>From (code)</label><input name="from" maxlength="3" placeholder="DAC" required></div>
+        <div><label>To (code)</label><input name="to" maxlength="3" placeholder="CGP" required></div>
+        <div><label>Departure (local)</label><input name="depLocal" type="datetime-local" required></div></div>
+        <div class="row" style="margin-top:12px">
+        <div><label>Duration (min)</label><input name="duration" type="number" min="20" max="1500" required></div>
+        <div><label>Aircraft</label><select name="aircraftId" id="acSel"></select></div>
+        <div><label>Economy fare (BDT)</label><input name="fare" type="number" min="500" required></div>
+        <div><label>Repeat days</label><input name="days" type="number" min="1" max="90" value="1"></div>
+        <button class="pill" type="submit">Add flight</button></div></form>
+    </div>
+
+    <div class="panel adm" hidden>
+      <h2 style="margin-bottom:14px">Aircraft</h2>
+      <div class="tw"><table><thead><tr><th>ID</th><th>Model</th><th>Registration</th><th>Seats</th><th>Flights</th></tr></thead><tbody id="acRows"></tbody></table></div>
+      <form id="addAc" style="margin-top:18px"><div class="row">
+        <div><label>Model</label><input name="model" placeholder="Airbus A320neo" required></div>
+        <div><label>Registration</label><input name="registration" placeholder="S2-ANX" required></div>
+        <div><label>Seats</label><input name="capacity" type="number" min="30" max="600" required></div>
+        <button class="pill" type="submit">Add aircraft</button></div></form>
+    </div>
+
+    <div class="panel">
+      <h2 style="margin-bottom:14px">Change my password</h2>
+      <form id="pwStaff"><div class="row"><div><label>Current password</label><input name="oldPassword" type="password" required autocomplete="current-password"></div>
+        <div><label>New password (8+ characters)</label><input name="newPassword" type="password" minlength="8" required autocomplete="new-password"></div>
+        <button class="pill" type="submit">Change password</button></div></form>
+    </div>
+  </div>
+  <div id="msg" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+let cur=null;
+const say=(t,ok)=>{$("msg").textContent=t;$("msg").className=ok?"ok":"bad"};
+async function api(path,opts){
+  const r=await fetch(path,opts); const d=await r.json();
+  if(!r.ok){ if(r.status===401&&path!=="/api/login") showLogin(); throw new Error(d.error||"Request failed"); }
+  return d;
+}
+function showLogin(){$("login").hidden=false;$("desk").hidden=true;$("out").hidden=true;$("who").textContent=""}
+
+async function start(){
+  const me=await fetch("/api/me").then(r=>r.json()).catch(()=>({loggedIn:false}));
+  if(!me.loggedIn||me.role!=="staff"){showLogin();return}
+  $("login").hidden=true;$("desk").hidden=false;$("out").hidden=false;$("who").textContent=me.name;
+  try{const m=await api("/api/meta");$("lounge").innerHTML="";m.lounges.forEach(l=>$("lounge").add(new Option(l.name,l.id)))}catch(e){}
+  $("rdate").value=new Date().toISOString().slice(0,10); $("mdate").value=$("rdate").value; loadReport();
+  document.querySelectorAll(".adm").forEach(p=>p.hidden=!me.admin);
+  if(me.admin){loadManage(); loadAircraft();}
+}
+
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();$("lerr").textContent="";
+  try{const body=new URLSearchParams(new FormData(e.target));body.set("type","staff");
+    await api("/api/login",{method:"POST",body});e.target.reset();start();}
+  catch(err){$("lerr").textContent=err.message}
+});
+$("out").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.reload()};
+
+$("lookup").addEventListener("submit",async e=>{
+  e.preventDefault();
+  try{
+    cur=await api("/api/booking?id="+encodeURIComponent($("bid").value));
+    $("info").innerHTML="";
+    [["Booked by",cur.name+(cur.vip?" ★ NovaClub VIP":"")],["Account passport",cur.passport],["Flight",`${cur.flightNo} (${cur.route})`],["Departs (local)",cur.departs],
+     ["Seats / cabin",`${cur.seat} · ${cur.cabin}`],["Booking",cur.status+(cur.leg?" · "+cur.leg+" leg":"")],["Payment",cur.payment]].forEach(([k,v])=>{
+      const d=document.createElement("div"),s=document.createElement("small"),b=document.createElement("b");
+      s.textContent=k;b.textContent=v;d.append(s,b);$("info").append(d)});
+    drawPax();
+    $("work").hidden=false;$("msg").className="";
+  }catch(err){$("work").hidden=true;say(err.message,false)}
+});
+
+document.querySelectorAll("form[data-path]").forEach(f=>f.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const body=new URLSearchParams(new FormData(f));
+  body.set("passengerId",cur.passengerId);
+  if($("who").value) body.set("ticketId",$("who").value);
+  if(f.dataset.flight) body.set("flightId",cur.flightId);
+  const btn=f.querySelector("button");btn.disabled=true;
+  try{const d=await api(f.dataset.path,{method:"POST",body});say(d.message,true);loadReport()}
+  catch(err){say(err.message,false)}
+  finally{btn.disabled=false}
+}));
+
+
+function drawPax(){
+  const tb=$("paxRows"); tb.innerHTML="";
+  const open=cur.passengers.filter(p=>p.status==="Issued"&&!p.checkedIn).length;
+  $("paxHint").textContent=`${cur.passengers.length} passenger${cur.passengers.length>1?"s":""} on this booking, ${open} waiting for check-in.`;
+  cur.passengers.forEach(p=>{
+    const tr=tb.insertRow(); if(p.scanned) tr.style.background="rgba(230,205,165,.12)";
+    [p.name+(p.scanned?"  ◀ scanned":""),p.type,p.seat,p.cabin,p.status==="Cancelled"?"Cancelled":p.checkedIn?"Checked in":"Not checked in"].forEach(v=>{tr.insertCell().textContent=v});
+    const td=tr.insertCell();
+    if(p.status==="Issued"&&!p.checkedIn){const b=document.createElement("button");b.className="link";b.type="button";b.textContent="Check in";b.onclick=()=>doCheck({ticketId:p.ticketId});td.append(b)}
+  });
+  $("checkAll").disabled=open===0; $("checkAll").hidden=cur.passengers.length<2;
+  const w=$("who"), keep=w.value; w.innerHTML="";
+  cur.passengers.filter(p=>p.status!=="Cancelled").forEach(p=>w.add(new Option(`${p.name} · seat ${p.seat} · ${p.type}`,p.ticketId)));
+  const sc=cur.passengers.find(p=>p.scanned);
+  if(keep&&[...w.options].some(o=>o.value===keep)) w.value=keep; else if(sc) w.value=sc.ticketId;
+}
+async function doCheck(params){
+  try{const d=await api("/api/staff/checkin",{method:"POST",body:new URLSearchParams(params)});say(d.message,true);
+    cur=await api("/api/booking?id="+cur.bookingId); drawPax(); loadReport()}
+  catch(err){say(err.message,false)}
+}
+$("checkAll").onclick=()=>doCheck({all:1,bookingId:cur.bookingId});
+
+async function loadReport(){
+  try{
+    const d=await api("/api/report?date="+encodeURIComponent($("rdate").value));
+    $("cards").innerHTML="";
+    [["Bookings made",d.bookings],["Confirmed",d.confirmed],["Cancelled",d.cancelled],["Net revenue","BDT "+Number(d.revenue).toLocaleString()]].forEach(([k,v])=>{
+      const c=document.createElement("div"),s=document.createElement("small"),b=document.createElement("b");
+      c.className="card";s.textContent=k;b.textContent=v;c.append(s,b);$("cards").append(c)});
+    const tb=$("rows");tb.innerHTML="";
+    if(!d.flights.length){const td=tb.insertRow().insertCell();td.colSpan=6;td.textContent="No flights depart on this date."}
+    d.flights.forEach(f=>{const tr=tb.insertRow();
+      [f.flightNo,f.route,f.departs,f.status,`${f.booked} / ${f.capacity}`,f.checkedIn].forEach(v=>{tr.insertCell().textContent=v})});
+  }catch(err){say(err.message,false)}
+}
+$("rbtn").onclick=loadReport;
+/* ---- management ---- */
+const form=(f)=>new URLSearchParams(new FormData(f));
+async function loadManage(){
+  try{
+    const q=$("mno").value.trim()?"flightNo="+encodeURIComponent($("mno").value.trim()):"date="+encodeURIComponent($("mdate").value);
+    const d=await api("/api/admin/flights?"+q); const tb=$("mrows"); tb.innerHTML="";
+    if(!d.length){const td=tb.insertRow().insertCell();td.colSpan=8;td.textContent="No flights found."}
+    d.forEach(f=>{
+      const tr=tb.insertRow();
+      [f.no,`${f.from} → ${f.to}`,f.dep,`${f.booked} / ${f.capacity}`].forEach(v=>tr.insertCell().textContent=v);
+      const fare=document.createElement("input"); fare.type="number"; fare.value=f.fare; fare.style.width="110px"; fare.style.height="38px"; tr.insertCell().append(fare);
+      const st=document.createElement("select"); st.style.height="38px"; ["Scheduled","Delayed","Boarding","Departed","Arrived","Cancelled"].forEach(o=>st.add(new Option(o,o,false,o===f.status))); tr.insertCell().append(st);
+      const sh=document.createElement("input"); sh.type="number"; sh.placeholder="0"; sh.style.width="80px"; sh.style.height="38px"; tr.insertCell().append(sh);
+      const b=document.createElement("button"); b.className="link"; b.type="button"; b.textContent="Save";
+      b.onclick=async()=>{
+        const body=new URLSearchParams({flightId:f.id});
+        if(+fare.value!==f.fare) body.set("fare",fare.value);
+        if(st.value!==f.status){ if(st.value==="Cancelled"&&!confirm("Cancel "+f.no+"? Every booking on it will be cancelled and refunded.")) return; body.set("status",st.value) }
+        if(sh.value) body.set("shiftMinutes",sh.value);
+        if([...body.keys()].length===1){say("Nothing changed.",false);return}
+        try{const r=await api("/api/admin/flight/update",{method:"POST",body});say(r.message,true);loadManage();loadReport()}catch(err){say(err.message,false)}
+      };
+      tr.insertCell().append(b);
+    });
+  }catch(err){say(err.message,false)}
+}
+async function loadAircraft(){
+  try{const d=await api("/api/admin/aircraft"); $("acRows").innerHTML=""; $("acSel").innerHTML="";
+    d.forEach(a=>{const tr=$("acRows").insertRow(); [a.id,a.model,a.reg,a.capacity,a.flights].forEach(v=>tr.insertCell().textContent=v); $("acSel").add(new Option(`${a.reg} · ${a.model} (${a.capacity})`,a.id))});
+  }catch(err){say(err.message,false)}
+}
+$("mbtn").onclick=loadManage;
+$("addFlight").addEventListener("submit",async e=>{e.preventDefault();
+  try{const r=await api("/api/admin/flight/add",{method:"POST",body:form(e.target)});say(r.message,true);loadManage()}catch(err){say(err.message,false)}});
+$("addAc").addEventListener("submit",async e=>{e.preventDefault();
+  try{const r=await api("/api/admin/aircraft/add",{method:"POST",body:form(e.target)});say(r.message,true);e.target.reset();loadAircraft()}catch(err){say(err.message,false)}});
+$("pwStaff").addEventListener("submit",async e=>{e.preventDefault();
+  try{const r=await api("/api/password/change",{method:"POST",body:form(e.target)});say(r.message,true);e.target.reset()}catch(err){say(err.message,false)}});
+
+start();
+</script>
+</body>
+</html>
